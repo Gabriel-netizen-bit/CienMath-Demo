@@ -39,7 +39,7 @@ body{background:radial-gradient(ellipse at 85% 0%,rgba(46,184,174,.08),transpare
 .student-shell .student-top .muted{color:#bbd3dd}
 .student-shell .student-top .btn{background:rgba(10,39,58,.8);border:1px solid rgba(87,218,217,.42);color:#ecfbff}
 .student-shell .student-top .btn:hover{box-shadow:0 0 19px rgba(64,225,187,.25)}
-.student-shell .student-intro,:root.dark .student-shell .student-intro{position:relative;isolation:isolate;overflow:hidden;color:#f7fcff;background:linear-gradient(90deg,rgba(4,19,35,.98) 0%,rgba(5,26,44,.95) 42%,rgba(4,27,43,.5) 75%),url('../assets/cienmath-ciencia-hero.webp') center right/cover;border:1px solid rgba(77,215,204,.26);min-height:160px}
+.student-shell .student-intro,:root.dark .student-shell .student-intro{position:relative;isolation:isolate;overflow:hidden;color:#f7fcff;background:url('../assets/cienmath-hero-oscuro.webp') center right/cover;border:1px solid rgba(77,215,204,.26);min-height:160px}
 .student-shell .student-intro:before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 70% 70%,rgba(46,216,177,.13),transparent 50%)}
 .student-shell .student-intro h1{color:#f8fcff}
 .student-shell .student-intro p:not(.student-eyebrow){color:#c5e0eb}

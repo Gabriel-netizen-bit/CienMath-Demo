@@ -49,8 +49,10 @@ export function renderWeeklyGrid({
 
     // Conservar la hora visible cuando se vuelve a renderizar o se cambia de semana.
     // Así una semana atípica no desplaza la navegación habitual hacia la madrugada.
+    const mobileStudentCalendar = scrollContainer.classList.contains('student-weekarea')
+        && window.matchMedia('(max-width: 700px), (hover: none) and (pointer: coarse) and (max-width: 1000px)').matches;
     const previousOrigin = Number(scrollContainer.dataset.weekOrigin ?? BASE_START);
-    const previousMinute = scrollContainer.dataset.weekRendered === 'true'
+    const previousMinute = !mobileStudentCalendar && scrollContainer.dataset.weekRendered === 'true'
         ? previousOrigin + scrollContainer.scrollTop / PIXELS_PER_MINUTE
         : BASE_START;
 
@@ -131,5 +133,7 @@ export function renderWeeklyGrid({
     container.replaceChildren(headers, grid);
     scrollContainer.dataset.weekOrigin = String(origin);
     scrollContainer.dataset.weekRendered = 'true';
-    scrollContainer.scrollTop = Math.max(0, (previousMinute - origin) * PIXELS_PER_MINUTE);
+    if (!mobileStudentCalendar) {
+        scrollContainer.scrollTop = Math.max(0, (previousMinute - origin) * PIXELS_PER_MINUTE);
+    }
 }

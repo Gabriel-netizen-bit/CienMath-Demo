@@ -1973,3 +1973,32 @@ input:focus,select:focus {
 .edit-attributes .bach-switch input:checked+.switch-track { background: #b85824; border-color: #b85824; }
 :root.dark .form>.class-attributes .bach-switch input:checked+.switch-track,
 :root.dark .edit-attributes .bach-switch input:checked+.switch-track { background: #d77c43; border-color: #d77c43; }
+
+/* V13.8.28 — Navegación táctil del constructor de horarios.
+   Únicamente teléfonos (vertical u horizontal) y ventanas estrechas.
+   Los paneles crecen con el documento; se conserva el scroll lateral semanal. */
+@media (max-width: 700px),
+       (hover: none) and (pointer: coarse) and (max-width: 1000px) {
+  #work .form {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    overscroll-behavior-y: auto;
+  }
+  #work .daymap,
+  #work #weekarea,
+  #work #yeararea {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: visible;
+    overscroll-behavior-y: auto;
+    scrollbar-gutter: auto;
+  }
+  #work #weekarea {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  #work #weekarea .week { min-width: 735px; }
+}

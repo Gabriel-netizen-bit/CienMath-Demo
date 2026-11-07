@@ -68,13 +68,12 @@
   color:#123247;
 }
 :root:not(.dark) .hero-art {
-  background-image:linear-gradient(90deg,#f7fdfd 0%,rgba(247,253,253,.68) 42%,rgba(247,253,253,.12) 100%),
-                   url('../assets/cienmath-ciencia-hero.webp');
-  opacity:.72;
+  background-image:url('../assets/cienmath-hero-claro.webp');
+  opacity:1;
 }
 :root:not(.dark) .hero-glow {
   background:radial-gradient(ellipse at 5% 90%,rgba(4,158,135,.10),transparent 38%),
-             linear-gradient(90deg,rgba(248,253,253,.95) 0%,rgba(248,253,253,.72) 40%,transparent 75%);
+             linear-gradient(90deg,rgba(248,253,253,.88) 0%,rgba(248,253,253,.48) 40%,transparent 75%);
 }
 :root:not(.dark) .hero-description,:root:not(.dark) .hero-note {color:#416474}
 :root:not(.dark) .hero h1 span {background:linear-gradient(95deg,#087b63 5%,#137a97 56%,#175a9b 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -85,8 +84,7 @@
 /* Segunda franja oscura en reservas: la misma ilustración, legible en modo claro. */
 :root:not(.dark) .student-shell .student-intro {
   color:#123247;
-  background:linear-gradient(90deg,rgba(248,253,253,.98) 0%,rgba(239,250,250,.94) 46%,rgba(228,247,247,.65) 100%),
-             url('../assets/cienmath-ciencia-hero.webp') center right/cover;
+  background:url('../assets/cienmath-hero-claro.webp') center right/cover;
   border-color:#c9e4e4;
 }
 :root:not(.dark) .student-shell .student-intro h1 {color:#123247}
@@ -109,3 +107,6 @@
 .weekcard.bach-class.published:not(.booked) .bach-label{color:var(--cm-bach-open)}
 /* Solo vista diaria: aumentar ligeramente el nombre sin cambiar geometría. */
 .timecard.bach-class .bach-label{font-size:11.5px;font-weight:850}
+
+/* CienMath: contraste de portada en pantallas estrechas, tema claro. */
+@media(max-width:980px){:root:not(.dark) .hero-glow{background:linear-gradient(90deg,rgba(248,253,253,.94),rgba(248,253,253,.36))}}

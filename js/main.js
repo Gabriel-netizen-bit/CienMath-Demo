@@ -78,7 +78,7 @@ const bulkDelete = createBulkDelete({
 // ===========================================================================
 const classAttrs = b => ({ group: !!b.group, capacity: b.group ? (Number.isInteger(Number(b.capacity)) && Number(b.capacity) >= 2 ? Number(b.capacity) : 2) : 1, online: !!b.online, bachillerato: !!b.bachillerato });
 function readAttributes(prefix) {
-    const group = $(prefix + 'group').checked, online = $(prefix + 'online').checked;
+    const group = $(prefix + 'group').checked, online = !$(prefix + 'online').checked;
     const bachillerato = $(prefix + 'bachillerato').checked;
     const capacity = group ? Number($(prefix + 'capacity').value) : 1;
     if (group && (!Number.isInteger(capacity) || capacity < 2 || capacity > 999))
@@ -88,7 +88,7 @@ function readAttributes(prefix) {
 function syncAttributeControls(prefix) {
     const group = $(prefix + 'group').checked;
     $(prefix + 'capacity').disabled = !group;
-    $(prefix === 'edit-' ? 'edit-mode-description' : 'mode-description').textContent = $(prefix + 'online').checked ? 'Virtual' : 'Presencial';
+    $(prefix === 'edit-' ? 'edit-mode-description' : 'mode-description').textContent = $(prefix + 'online').checked ? 'Presencial' : 'Virtual';
     if (prefix === '')
         $('booking-description').textContent = $('booked').checked ? 'Reservada' : 'No reservada';
 }
@@ -678,7 +678,7 @@ function openEditor(key) {
     const attrs = classAttrs(b);
     $('edit-group').checked = attrs.group;
     $('edit-capacity').value = attrs.group ? attrs.capacity : 5;
-    $('edit-online').checked = attrs.online;
+    $('edit-online').checked = !attrs.online;
     $('edit-bachillerato').checked = attrs.bachillerato;
     syncAttributeControls('edit-');
     for (const id of ['edit-group', 'edit-capacity', 'edit-online', 'edit-bachillerato'])

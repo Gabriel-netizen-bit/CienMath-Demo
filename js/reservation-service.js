@@ -32,6 +32,8 @@ export function reserveDemoClass({ teacherId, classId, name, email, subject, gra
   const items = loadTeacherClasses(teacherId);
   const lesson = items.find(c => String(c.id) === String(classId));
   if (!lesson || !lesson.published) throw new Error('Esta clase ya no está publicada.');
+  if (lesson.bachillerato && String(grade) !== 'bachillerato') throw new Error('El nivel de esta clase es Bachillerato.');
+  if (!lesson.bachillerato && String(grade) === 'bachillerato') throw new Error('Seleccioná el nivel correspondiente a esta clase.');
   if (mode !== (lesson.online ? 'online' : 'onsite')) throw new Error('La modalidad no corresponde a la clase publicada.');
   const capacity = lesson.group ? Math.max(2, Number(lesson.capacity) || 2) : 1;
   const enrolled = Math.max(0, Number(lesson.enrolled) || 0);

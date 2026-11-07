@@ -133,3 +133,19 @@
   .student-fields > input { width: 100%; }
   .student-summary-row { grid-template-columns: 104px minmax(0,1fr); gap: 7px; }
 }
+
+/* Móvil: el calendario crece con la página; solo conserva scroll lateral.
+   No afecta los calendarios de profesores ni las vistas de escritorio. */
+@media (max-width: 700px),
+       (hover: none) and (pointer: coarse) and (max-width: 1000px) {
+  #weekarea.student-weekarea,
+  #student-yeararea.student-yeararea {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: visible;
+    overscroll-behavior-y: auto;
+    scrollbar-gutter: auto;
+  }
+}

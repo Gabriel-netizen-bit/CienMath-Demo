@@ -54,6 +54,12 @@ function openBooking(item) {
     const teacherRecord = teachers.find(t => t.id === item.teacherId);
     const subjectSelect = $('student-subject');
     for (const option of subjectSelect.options) option.disabled = !!option.value && !teacherRecord?.subjects.includes(option.value);
+    const grade = $('student-grade');
+    const gradeLabel = document.querySelector('label[for="student-grade"]');
+    grade.value = item.bachillerato ? 'bachillerato' : '';
+    grade.disabled = !!item.bachillerato;
+    grade.hidden = !!item.bachillerato;
+    gradeLabel.hidden = !!item.bachillerato;
     const mode = item.online ? 'online' : 'onsite';
     for (const input of document.querySelectorAll('input[name=mode]')) { input.checked = input.value === mode; input.disabled = input.value !== mode; }
     $('student-mode-hint').textContent = item.online ? 'Modalidad en línea definida por el profesor.' : 'Modalidad presencial definida por el profesor.';
@@ -208,7 +214,7 @@ $('student-booking-form').addEventListener('submit', event => {
         const reservation = reserveDemoClass({
             teacherId: selected.teacherId, classId: selected.id.split(':').slice(-1)[0],
             name: $('student-name').value, email: $('student-email').value,
-            subject: $('student-subject').value, grade: $('student-grade').value,
+            subject: $('student-subject').value, grade: selected.bachillerato ? 'bachillerato' : $('student-grade').value,
             mode: document.querySelector('input[name=mode]:checked')?.value
         });
         $('student-booking-form').hidden = true;
