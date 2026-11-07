@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/cienmath-favicon.png">
+
     <meta charset="utf-8"/>
     <meta content="width=device-width,initial-scale=1" name="viewport"/>
     <title>CienMath | Constructor de horarios</title>
@@ -8,21 +10,13 @@
     <link href="css/styles.css" rel="stylesheet"/>
     <link href="css/site-chrome.css" rel="stylesheet"/>
     <link href="css/tool-theme.css" rel="stylesheet"/>
-  </head>
-  <body style="visibility:hidden">
+    <link rel="stylesheet" href="css/site-shell.css">
+  <script src="js/site-shell.js" defer></script>
+</head>
+  <body data-cm-page="horarios" style="visibility:hidden">
     <main class="shell" id="app">
       <!-- 01 · CABECERA: identidad y selector de tema -->
-      <header class="top row site-header">
-        <div>
-          <div class="brand"><b>Cien</b>Math</div>
-          <div class="muted" id="calendar-role-caption">Academia Virtual · Administración</div>
-        </div>
-        <div class="site-header-actions">
-          <a class="btn site-back" href="index.html">⌂ Inicio</a>
-          <button class="btn site-back" id="back" type="button" hidden>‹ Volver</button>
-          <button class="btn site-back" id="demo-logout" type="button">Salir · Demo</button><button aria-label="Cambiar tema" class="btn icon" id="theme" data-theme-toggle>☾</button>
-        </div>
-      </header>
+      <div data-cm-header></div>
       <!-- 02 · INICIO: accesos a profesores y horarios -->
       <section class="home" id="home">
         <h2>¿Qué deseas hacer?</h2>
@@ -37,6 +31,7 @@
         <div class="row toolbar">
           <div class="actions">
             <strong id="schedule-context-title">Constructor de horarios</strong>
+            <button class="btn" id="back" type="button" hidden>Opciones</button>
           </div>
           <div class="actions">
             <div aria-label="Vista del calendario" class="view-switch" role="group">
@@ -233,10 +228,7 @@
         </div>
       </section>
     <!-- Pie institucional compacto; contacto y enlaces se incorporarán con el lobby. -->
-    <footer class="site-footer" aria-label="Información institucional">
-      <span><strong>CienMath</strong> · Academia virtual de ciencias</span>
-      <span class="site-footer-meta">© 2026 CienMath · Todos los derechos reservados</span>
-    </footer>
+    <div data-cm-footer></div>
     </main>
     <!-- 08 · EDITOR FLOTANTE DE CLASES -->
     <div aria-label="Editor de clase" aria-modal="false" class="floating" hidden="" id="floating" role="dialog">

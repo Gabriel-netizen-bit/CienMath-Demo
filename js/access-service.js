@@ -15,5 +15,5 @@ export function canOpenCalendar(profile, teacherId, teachers) {
   return canManageTeachers(profile) || (profile.role === 'teacher' && profile.id === teacherId && teachers.some(t => t.id === teacherId && t.active));
 }
 export function profileDestination(profile) {
-  return canManageTeachers(profile) ? 'panel.html' : `horarios.html?profesor=${encodeURIComponent(profile.id)}`;
+  return 'panel.html'; // Un panel para ambos perfiles; contenido según permisos.
 }

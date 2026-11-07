@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es">
 <head>
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/cienmath-favicon.png">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CienMath | Horarios para estudiantes</title>
@@ -9,20 +11,12 @@
   <link rel="stylesheet" href="css/site-chrome.css">
   <link rel="stylesheet" href="css/student.css">
   <link rel="stylesheet" href="css/tool-theme.css">
+  <link rel="stylesheet" href="css/site-shell.css">
+  <script src="js/site-shell.js" defer></script>
 </head>
-<body>
+<body data-cm-page="estudiantes">
   <main class="shell student-shell">
-    <header class="top row student-top site-header">
-      <div>
-        <span class="brand site-brand"><b>Cien</b>Math</span>
-        <div class="muted">Academia Virtual · Horarios para estudiantes</div>
-      </div>
-      <div class="student-top-actions site-header-actions">
-        <!-- Regreso al lobby institucional. -->
-        <a class="btn site-back student-back" href="index.html">‹ Inicio</a>
-        <button class="btn icon" id="student-theme" data-theme-toggle type="button" aria-label="Cambiar tema">☾</button>
-      </div>
-    </header>
+    <div data-cm-header></div>
 
     <section class="student-intro" aria-labelledby="student-heading">
       <div>
@@ -68,10 +62,7 @@
       <p class="student-calendar-foot">Seleccioná una tarjeta disponible para reservar. Las clases reservadas permanecen visibles para consultar la ocupación.</p>
     </section>
     <!-- Pie institucional compacto; contacto y enlaces se incorporarán con el lobby. -->
-    <footer class="site-footer" aria-label="Información institucional">
-      <span><strong>CienMath</strong> · Academia virtual de ciencias</span>
-      <span class="site-footer-meta">© 2026 CienMath · Todos los derechos reservados</span>
-    </footer>
+    <div data-cm-footer></div>
   </main>
 
   <dialog id="student-booking" class="student-dialog" aria-labelledby="student-booking-title">
@@ -111,7 +102,7 @@
     <div class="student-success-body" id="student-booking-success" hidden role="status" aria-live="polite">
       <span class="student-success-mark" aria-hidden="true">✓</span>
       <h2>¡Reservación confirmada!</h2>
-      <p><strong>DEMO LOCAL</strong> · El cupo quedó reservado en este navegador.</p>
+      <p><strong>CONFIRMACIÓN LOCAL</strong> · El cupo quedó reservado en este navegador.</p>
       <p id="student-success-detail"></p>
       <p>Referencia: <strong id="student-success-reference"></strong></p>
       <p class="muted">No se han enviado correos ni SMS. La confirmación real requiere conectar un backend.</p>

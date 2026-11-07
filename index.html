@@ -1,34 +1,41 @@
 <!doctype html>
 <html lang="es">
 <head>
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/cienmath-favicon.png">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Academia Virtual CienMath: Matemáticas, Física, Química y Biología para secundaria. Preparación para pruebas nacionales y acompañamiento académico.">
+  <!-- Vista previa al compartir el sitio; no altera su apariencia ni funciones. -->
+  <link rel="canonical" href="https://gabriel-netizen-bit.github.io/CienMath-Demo/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CR">
+  <meta property="og:site_name" content="CienMath">
+  <meta property="og:title" content="CienMath | Academia Virtual">
+  <meta property="og:description" content="Matemáticas y Ciencias Naturales. Aprender con método, avanzar con seguridad. Conocé nuestra propuesta académica.">
+  <meta property="og:url" content="https://gabriel-netizen-bit.github.io/CienMath-Demo/">
+  <meta property="og:image" content="https://gabriel-netizen-bit.github.io/CienMath-Demo/assets/cienmath-whatsapp.jpg">
+  <meta property="og:image:secure_url" content="https://gabriel-netizen-bit.github.io/CienMath-Demo/assets/cienmath-whatsapp.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Academia Virtual CienMath · Matemáticas y Ciencias Naturales">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CienMath | Academia Virtual">
+  <meta name="twitter:description" content="Aprender con método, avanzar con seguridad.">
+  <meta name="twitter:image" content="https://gabriel-netizen-bit.github.io/CienMath-Demo/assets/cienmath-whatsapp.jpg">
   <meta name="theme-color" content="#071728">
   <title>CienMath | Academia Virtual de Ciencias</title>
   <!-- La portada se presenta inicialmente en oscuro; se respeta la preferencia ya elegida. -->
   <script>try{if(localStorage.getItem('cienmath:appearance')===null)localStorage.setItem('cienmath:appearance','dark')}catch(e){document.documentElement.classList.add('dark')}</script>
   <script src="js/theme.js"></script>
   <link rel="stylesheet" href="css/lobby.css">
+  <link rel="stylesheet" href="css/site-shell.css">
+  <script src="js/site-shell.js" defer></script>
 </head>
-<body>
+<body data-cm-page="index">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <header class="lobby-header" id="inicio">
-    <div class="header-inner">
-      <a href="#inicio" class="identity" aria-label="CienMath · Inicio">
-        <svg class="identity-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="logoG" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#45e88c"/><stop offset="1" stop-color="#43d7f5"/></linearGradient></defs><path d="M21 7v15L10 44a4 4 0 0 0 3.6 6h28.8a4 4 0 0 0 3.6-6L35 22V7" fill="none" stroke="url(#logoG)" stroke-width="3" stroke-linecap="round"/><path d="M16 38h24l5 9H11z" fill="#40e49e" opacity=".38"/><path d="M17 7h22" stroke="#55e5d8" stroke-width="3" stroke-linecap="round"/><ellipse cx="28" cy="29" rx="25" ry="10" fill="none" stroke="#70c9ff" stroke-width="2" transform="rotate(-35 28 29)"/><circle cx="28" cy="29" r="3.5" fill="#f3ffff"/></svg>
-        <span class="identity-type"><small>Academia Virtual</small><strong><em>Cien</em>Math</strong></span>
-      </a>
-      <button class="mobile-menu" id="mobile-menu" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
-      <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
-        <a class="active" href="#inicio">Inicio</a><a href="#academia">La academia</a><a href="#programas">Programas</a><a href="#horarios">Horarios y tarifas</a><a href="#informacion">Información</a>
-      </nav>
-      <div class="header-actions">
-        <button class="theme-control" data-theme-toggle type="button" aria-label="Cambiar tema">☾</button>
-        <button class="access-button" data-open-access type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg> Acceso <span class="micro-demo">Demo</span></button>
-      </div>
-    </div>
-  </header>
+  <div data-cm-header></div>
   <main id="contenido">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-art" aria-hidden="true"></div>
@@ -39,8 +46,8 @@
           <h1 id="hero-title">Aprender con método,<br><span>avanzar con seguridad.</span></h1>
           <p class="hero-description">Matemáticas y Ciencias Naturales para estudiantes de secundaria. Enseñanza estructurada, grupos reducidos y acompañamiento académico real.</p>
           <div class="subjects-line" aria-label="Áreas de enseñanza"><span>◈ Biología</span><span>⚛ Física</span><span>⬡ Química</span><span>∑ Matemáticas</span></div>
-          <div class="hero-buttons"><a href="#programas" class="cta primary">Explorar programas <span aria-hidden="true">→</span></a><a href="estudiantes.html" class="cta outline">Ver horarios <small>Demo</small><span aria-hidden="true">▦</span></a></div>
-          <p class="hero-note"><span class="pulse"></span> Vista de presentación · Funciones en desarrollo identificadas como Demo</p>
+          <div class="hero-buttons"><a href="#programas" class="cta primary">Explorar programas <span aria-hidden="true">→</span></a><a href="estudiantes.html" class="cta outline">Ver horarios<span aria-hidden="true">▦</span></a></div>
+          <p class="hero-note"><span class="pulse"></span> Vista de presentación · Algunas funciones todavía están en desarrollo</p>
         </div>
       </div>
       <div class="hero-bottom-light" aria-hidden="true"></div>
@@ -69,21 +76,21 @@
       <p class="disclaimer">* Fechas facilitadas por la academia. Año lectivo y vigencia pendientes de confirmación.</p>
     </section>
     <section class="content-section schedule-section" id="horarios">
-      <div class="schedule-panel"><div><p class="kicker">CLASES Y DISPONIBILIDAD</p><h2>Encontrá el espacio ideal para aprender.</h2><p>Sesiones grupales y tutorías individuales. Los horarios y cupos se consultan desde la herramienta de reservas.</p><div class="schedule-actions"><a href="estudiantes.html" class="cta primary">Explorar horarios <small>Demo</small> <span>→</span></a><button class="text-button" data-open-info="tarifas" type="button">Consultar tarifas <small>Demo</small> ↗</button></div></div><div class="schedule-visual" aria-hidden="true"><div class="calendar-head"><span>Calendario académico</span><span>◷</span></div><div class="calendar-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="calendar-floating">Cupos y horarios</span></div></div>
+      <div class="schedule-panel"><div><p class="kicker">CLASES Y DISPONIBILIDAD</p><h2>Encontrá el espacio ideal para aprender.</h2><p>Sesiones grupales y tutorías individuales. Los horarios y cupos se consultan desde la herramienta de reservas.</p><div class="schedule-actions"><a href="estudiantes.html" class="cta primary">Explorar horarios <span>→</span></a><button class="text-button" data-open-info="tarifas" type="button">Consultar tarifas ↗</button></div></div><div class="schedule-visual" aria-hidden="true"><div class="calendar-head"><span>Calendario académico</span><span>◷</span></div><div class="calendar-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="calendar-floating">Cupos y horarios</span></div></div>
     </section>
     <section class="content-section info-section" id="informacion"><div class="section-title-row"><div><p class="kicker">INFORMACIÓN IMPORTANTE</p><h2>Todo claro desde el inicio.</h2></div><p>Una experiencia educativa organizada también necesita reglas y fechas transparentes.</p></div>
       <div class="info-grid">
         <article class="info-card"><div class="info-symbol">▦</div><h3>Calendario académico</h3><p>Recesos indicados por la academia: del 30 de marzo al 4 de abril y del 6 al 18 de julio.</p><small>Fechas sujetas a confirmación del ciclo.</small></article>
-        <article class="info-card"><div class="info-symbol">◇</div><h3>Política de pagos</h3><p>La academia contempla pagos mensuales anticipados y reserva de cupos mediante pago.</p><button data-open-info="pagos" type="button">Ver condiciones <span class="micro-demo">Demo</span> ↗</button></article>
-        <article class="info-card"><div class="info-symbol">♧</div><h3>Reglamento para familias</h3><p>Puntualidad, asistencia responsable, comunicación respetuosa y compromiso con el aprendizaje.</p><button data-open-info="reglamento" type="button">Ver reglamento <span class="micro-demo">Demo</span> ↗</button></article>
+        <article class="info-card"><div class="info-symbol">◇</div><h3>Política de pagos</h3><p>La academia contempla pagos mensuales anticipados y reserva de cupos mediante pago.</p><button data-open-info="pagos" type="button">Ver condiciones  ↗</button></article>
+        <article class="info-card"><div class="info-symbol">♧</div><h3>Reglamento para familias</h3><p>Puntualidad, asistencia responsable, comunicación respetuosa y compromiso con el aprendizaje.</p><button data-open-info="reglamento" type="button">Ver reglamento  ↗</button></article>
       </div>
     </section>
     <section class="closing"><div><p class="kicker">CIENMATH · ACADEMIA VIRTUAL</p><h2>Aprender es avanzar.<br><span>Hagámoslo con método.</span></h2><p>Conocé nuestros programas y explorá cómo se organizarán las clases.</p></div><a href="#programas" class="cta primary">Conocer programas <span>→</span></a></section>
   </main>
-  <footer class="lobby-footer"><div class="footer-inner"><div><strong>CienMath</strong><span>Academia Virtual · Matemáticas y Ciencias Naturales</span></div><div class="footer-links"><a href="#inicio">Inicio</a><a href="#programas">Programas</a><a href="#informacion">Información</a></div><small>© 2026 CienMath · Presentación de demostración</small></div></footer>
+  <div data-cm-footer></div>
   <!-- Los diálogos informativos no capturan datos ni simulan servicios activos. -->
-  <dialog id="access-dialog" class="lobby-dialog"><div class="dialog-inner"><button class="dialog-close" data-close-dialog type="button" aria-label="Cerrar">×</button><p class="kicker">ACCESO DEL PERSONAL · DEMO</p><h2>Panel de la academia</h2><p>Ingresá como administrador o como uno de los profesores creados para recorrer la academia. Acceso simulado sin contraseñas ni seguridad real.</p><div class="dialog-links"><a href="acceso.html">Elegir perfil e ingresar <span>↗</span></a></div><small>Los cambios se almacenan únicamente en este navegador. No ingresar datos personales reales.</small></div></dialog>
-  <dialog id="info-dialog" class="lobby-dialog"><div class="dialog-inner"><button class="dialog-close" data-close-dialog type="button" aria-label="Cerrar">×</button><p class="kicker">INFORMACIÓN INSTITUCIONAL · DEMO</p><h2 id="info-dialog-title">Información</h2><div id="info-dialog-body"></div><p class="dialog-footnote">Contenido facilitado por la academia. Debe revisarse y aprobarse antes de su publicación definitiva.</p></div></dialog>
+  <dialog id="access-dialog" class="lobby-dialog"><div class="dialog-inner"><button class="dialog-close" data-close-dialog type="button" aria-label="Cerrar">×</button><p class="kicker">ACCESO DEL PERSONAL</p><h2>Panel de la academia</h2><p>Ingresá como administrador o como uno de los profesores creados para recorrer la academia. Acceso simulado sin contraseñas ni seguridad real.</p><div class="dialog-links"><a href="acceso.html">Elegir perfil e ingresar <span>↗</span></a></div><small>Los cambios se almacenan únicamente en este navegador. No ingresar datos personales reales.</small></div></dialog>
+  <dialog id="info-dialog" class="lobby-dialog"><div class="dialog-inner"><button class="dialog-close" data-close-dialog type="button" aria-label="Cerrar">×</button><p class="kicker">INFORMACIÓN INSTITUCIONAL</p><h2 id="info-dialog-title">Información</h2><div id="info-dialog-body"></div><p class="dialog-footnote">Contenido facilitado por la academia. Debe revisarse y aprobarse antes de su publicación definitiva.</p></div></dialog>
   <script src="js/lobby.js" defer></script>
 </body>
 </html>

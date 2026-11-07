@@ -15,7 +15,6 @@ if (!canOpenCalendar(profile, requestedTeacherId, loadTeachers())) {
     throw new Error('Calendario fuera del perfil de demostración seleccionado.');
 }
 document.body.style.visibility = 'visible';
-if (canManageTeachers(profile)) document.querySelector('.site-header .site-back').href = 'panel.html';
 document.getElementById('calendar-role-caption').textContent = canManageTeachers(profile) ? 'Academia Virtual · Administración' : 'Academia Virtual · Profesor';
 document.getElementById('demo-logout').addEventListener('click', () => { endDemoSession(); location.href = 'index.html'; });
 const $ = id => document.getElementById(id), root = $('app');
@@ -820,7 +819,7 @@ function renderDays() { $('days').replaceChildren(); ['L', 'M', 'X', 'J', 'V', '
     render(); }; $('days').append(b); }); }
 $('enter').onclick = () => { $('home').hidden = true; $('work').hidden = false; $('back').hidden = false; updatePlan(); };
 $('teachers').onclick = () => { location.href = 'profesores.html'; };
-$('back').onclick = () => { if (teacher) { location.href = canManageTeachers(profile) ? 'profesores.html' : 'index.html'; return; } $('work').hidden = true; $('home').hidden = false; $('back').hidden = true; };
+$('back').onclick = () => { if (teacher) { location.href = 'panel.html'; return; } $('work').hidden = true; $('home').hidden = false; $('back').hidden = true; };
 for (const kind of ['day', 'week', 'year'])
     $('view-' + kind).onclick = () => { view = kind; render(); };
 $('prevyear').onclick = () => { weekDate = String(Number(weekDate.slice(0, 4)) - 1) + '-01-01'; render(); };
@@ -945,7 +944,7 @@ if (teacherId) {
         if (heading) heading.textContent = canManageTeachers(profile) ? `Horarios de ${teacher.name}` : `Mi calendario · ${teacher.name}`;
         $('home').hidden = true;
         $('work').hidden = false;
-        $('back').hidden = false;
+        $('back').hidden = true; // Acceso directo desde el panel: sin navegación duplicada.
     }
 }
 syncAttributeControls('');
