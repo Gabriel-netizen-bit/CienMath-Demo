@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#248363">
+  <title>CienMath | Profesores</title>
+  <!-- Tema compartido: se aplica antes de pintar la página. -->
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/site-chrome.css">
+  <link rel="stylesheet" href="css/profesores.css">
+  <link rel="stylesheet" href="css/tool-theme.css">
+</head>
+<body style="visibility:hidden">
+  <main class="shell teachers-shell">
+    <header class="top row teachers-top site-header">
+      <span class="teachers-brand"><span class="brand"><b>Cien</b>Math</span></span>
+      <div class="teachers-nav"><span class="teachers-nav-label">Administración</span><a class="btn site-back" href="panel.html">‹ Panel</a><button class="btn site-back" id="demo-logout" type="button">Salir · Demo</button><button class="btn icon" type="button" id="teachers-theme" data-theme-toggle aria-label="Cambiar tema">☾</button></div>
+    </header>
+
+    <div class="teachers-heading">
+      <div><h1>Profesores</h1><p>Administrá el equipo docente y sus calendarios.</p></div>
+    </div>
+
+    <div class="teachers-note" role="note"><span aria-hidden="true">ⓘ</span><span><strong>Demostración local.</strong> Los cambios solo se guardan en este navegador; el acceso por perfiles es simulado y no protege datos.</span></div>
+
+    <p id="teachers-toast" class="teachers-toast" role="status" aria-live="polite" hidden></p>
+
+    <!-- Un solo control abre y cierra el formulario SIN moverse de lugar. -->
+    <div class="teachers-creation" id="teachers-creation">
+      <button class="btn primary teachers-creation-toggle" id="teacher-new" type="button" aria-controls="teacher-editor" aria-expanded="false">+ Nuevo profesor</button>
+      <section class="teachers-editor" id="teacher-editor" aria-labelledby="form-title" hidden>
+        <div class="teachers-editor-head"><h2 id="form-title">Nuevo profesor</h2></div>
+      <form id="teacher-form" novalidate>
+        <input type="hidden" id="teacher-id">
+        <div class="teachers-form-fields">
+          <div class="teachers-field"><label for="teacher-name">Nombre completo <span>*</span></label><input id="teacher-name" name="name" type="text" maxlength="100" minlength="3" autocomplete="off" placeholder="Nombre y apellidos" required></div>
+          <div class="teachers-field"><label for="teacher-email">Correo electrónico <span class="teachers-optional">Opcional</span></label><input id="teacher-email" name="email" type="email" maxlength="150" autocomplete="off" placeholder="profesor@correo.com"></div>
+        </div>
+        <fieldset class="teachers-subjects"><legend>Materias que imparte <span>*</span></legend><div id="teacher-subjects" class="teachers-subject-grid"></div></fieldset>
+        <div class="teachers-form-bottom"><p id="teacher-feedback" class="teachers-feedback" role="status" aria-live="polite"></p><div class="teachers-form-actions"><button class="btn" type="button" id="teacher-cancel">Cancelar</button><button class="btn primary" type="submit" id="teacher-submit">Crear profesor</button></div></div>
+      </form>
+      </section>
+    </div>
+
+    <section class="teachers-directory" aria-labelledby="list-title">
+      <div class="teachers-list-head">
+        <div class="teachers-list-title"><h2 id="list-title">Equipo docente</h2><span class="teachers-count" id="teacher-count">0 profesores</span></div>
+        <div class="teachers-stats" aria-label="Resumen de profesores"><span><b id="teacher-active-count">0</b> activos</span><span><b id="teacher-inactive-count">0</b> inactivos</span></div>
+      </div>
+      <div class="teachers-table-head" aria-hidden="true"><span>Profesor</span><span>Materias</span><span>Estado</span><span>Acciones</span></div>
+      <div id="teacher-list" class="teachers-list" aria-live="polite"></div>
+    </section>
+        <!-- Pie institucional compacto; contacto y enlaces se incorporarán con el lobby. -->
+    <footer class="site-footer" aria-label="Información institucional">
+      <span><strong>CienMath</strong> · Academia virtual de ciencias</span>
+      <span class="site-footer-meta">© 2026 CienMath · Todos los derechos reservados</span>
+    </footer>
+  </main>
+  <script type="module" src="js/profesores.js"></script>
+</body>
+</html>

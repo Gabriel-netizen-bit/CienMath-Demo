@@ -1,0 +1,40 @@
+/* ==========================================================================
+   CIENMATH · CROMO INSTITUCIONAL COMPARTIDO · V13.8.17
+   Solo header y footer. No modifica el diseño interno de las herramientas.
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 10px 12px;
+  margin: -8px -8px 16px;
+  background: color-mix(in srgb, var(--bg) 94%, var(--green) 6%);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  box-shadow: 0 4px 14px rgba(12, 46, 25, .06);
+}
+:root.dark .site-header { box-shadow: 0 4px 16px rgba(0, 0, 0, .15); }
+.site-header .site-brand { text-decoration: none; color: var(--ink); }
+.site-header .site-header-actions { display: flex; align-items: center; gap: 8px; }
+.site-header .site-back { text-decoration: none; white-space: nowrap; }
+.site-footer {
+  margin-top: 22px;
+  padding: 12px 3px 1px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 10px;
+}
+.site-footer strong { color: var(--ink); font-weight: 750; }
+.site-footer .site-footer-meta { text-align: right; }
+@media (max-width: 680px) {
+  .site-header { padding: 8px 9px; margin: -4px -4px 12px; }
+  .site-header .site-header-actions { gap: 6px; }
+  .site-header .site-back { padding: 7px 8px; }
+  .site-footer { font-size: 10px; }
+  .site-footer .site-footer-meta { text-align: left; }
+}

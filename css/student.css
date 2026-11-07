@@ -1,0 +1,135 @@
+/* CienMath · Estudiantes: colores compartidos con el profesor.
+   El naranja calabaza distingue Bachillerato del ámbar administrativo. */
+.student-shell {
+  --student-pumpkin: #b85824;
+  --student-pumpkin-fill: rgba(204, 100, 38, .29);
+}
+:root.dark .student-shell {
+  --student-pumpkin: #f1a16d;
+  --student-pumpkin-fill: rgba(236, 125, 58, .34);
+}
+.student-shell { max-width: 1450px; min-height: 90vh; }
+.student-top { padding: 3px 3px 15px; }
+.student-top-actions { display: flex; align-items: center; gap: 7px; }
+.student-back { text-decoration: none; }
+.student-intro { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 20px 24px; margin: 0 0 14px; background: color-mix(in srgb,var(--soft) 83%,var(--green) 17%); border: 1px solid var(--line); border-radius: 13px; }
+.student-eyebrow { display: block; margin: 0 0 6px; font-size: 9px; font-weight: 800; letter-spacing: 1.35px; color: var(--green); }
+.student-intro h1 { font-size: clamp(21px,2.5vw,29px); line-height: 1.2; margin: 0 0 5px; letter-spacing: -.5px; }
+.student-intro p:not(.student-eyebrow) { font-size: 12px; color: var(--muted); margin: 0; }
+.student-intro-accent { color: var(--green); opacity: .25; font-size: 56px; line-height: 1; }
+.student-calendar { background: var(--surface); border: 1px solid var(--line); border-radius: 13px; padding: 14px; min-width: 0; }
+.student-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.student-period { display: flex; flex-direction: column; gap: 2px; }
+.student-period strong { font-size: 15px; }
+.student-controls { display: flex; align-items: center; justify-content: flex-end; gap: 7px; flex-wrap: wrap; }
+.student-teacher-label { font-size: 11px; font-weight: 700; color: var(--muted); }
+.student-controls select, .student-controls input { height: 28px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); border-radius: 8px; font-size: 11px; padding: 2px 6px; }
+.student-controls select { width: 122px; max-width: 122px; }
+.student-controls input { width: 113px; max-width: 113px; }
+.student-navigation, .student-view-switch { display: flex; align-items: center; gap: 4px; }
+.student-controls .btn { height: 28px; min-height: 28px; padding: 3px 8px; font-size: 11px; }
+.student-controls .btn.icon { width: 28px; height: 28px; padding: 0; font-size: 17px; }
+.student-view-switch .active { border-color: var(--green); color: var(--green); background: color-mix(in srgb,var(--soft) 88%,var(--green) 12%); }
+.student-legend { display: flex; gap: 8px 16px; flex-wrap: wrap; align-items: center; padding: 12px 0; font-size: 10px; color: var(--muted); }
+.student-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.student-dot { display: inline-block; width: 9px; height: 9px; flex-shrink: 0; border-radius: 50%; background: var(--blue); }
+.student-dot.common-open { background: var(--blue); }
+.student-dot.bach-open { background: var(--student-pumpkin); }
+.student-dot.common-closed { background: var(--violet); }
+.student-dot.bach-closed { background: var(--violet); }
+.student-weekarea, .student-yeararea { width: 100%; height: clamp(320px,76vh,640px); max-height: 640px; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; padding: 10px; }
+.student-weekarea .week { min-width: 780px; }
+.student-weekarea .week-headers { z-index: 30; background: var(--surface); }
+.student-weekarea .week-day-header:hover { background: var(--soft); }
+/* Las cuatro líneas respetan la geometría temporal del módulo compartido. */
+.student-weekarea .student-slot { padding: 3px 2px; gap: 1px; border-width: 1px; border-style: solid; cursor: pointer; box-shadow: none; }
+.student-weekarea .student-slot .hours { font-size: 11px; line-height: 1.1; font-weight: 800; white-space: nowrap; }
+.student-weekarea .student-slot .student-type, .student-weekarea .student-slot .student-places, .student-weekarea .student-slot .student-state { font-size: 10px; line-height: 1.12; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Misma jerarquía tipográfica y semántica que la vista semanal del profesor. */
+.student-weekarea .student-slot .student-state { font-size: 11px; line-height: 1.1; font-weight: 800; }
+.student-weekarea .student-slot.common-open .student-state,
+.student-weekarea .student-slot.bach-open .student-state { color: var(--green); }
+.student-weekarea .student-slot.common-closed .student-state,
+.student-weekarea .student-slot.bach-closed .student-state { color: var(--violet); }
+.student-weekarea .student-slot.bach-open .student-type { color: var(--student-pumpkin); font-size: 11px; font-weight: 800; }
+.student-weekarea .student-slot.bach-closed .student-type { color: var(--violet); font-size: 11px; font-weight: 800; }
+/* Las clases publicadas y reservadas usan los mismos tonos del constructor.
+   Los estados se expresan también con texto; nunca solo con color. */
+.student-weekarea .weekcard.student-slot.common-open {
+  background: var(--card-published);
+  border-color: var(--blue);
+  color: var(--ink);
+}
+.student-weekarea .weekcard.student-slot.bach-open {
+  background: var(--student-pumpkin-fill);
+  border-color: var(--student-pumpkin);
+  color: var(--ink);
+}
+.student-weekarea .weekcard.student-slot.common-closed,
+.student-weekarea .weekcard.student-slot.bach-closed {
+  background: var(--card-booked);
+  border-color: var(--violet);
+  color: var(--ink);
+}
+.student-weekarea .student-slot:not(:disabled):hover, .student-weekarea .student-slot:not(:disabled):focus-visible { outline: 2px solid var(--blue); outline-offset: 0; filter: saturate(1.08); }
+.student-weekarea .student-slot.bach-open:not(:disabled):hover, .student-weekarea .student-slot.bach-open:not(:disabled):focus-visible { outline-color: var(--student-pumpkin); }
+.student-weekarea .student-slot.micro::after { color: var(--blue); }
+.student-weekarea .student-slot.bach-open.micro::after { color: var(--student-pumpkin); }
+.student-weekarea .student-slot:disabled { cursor: default; opacity: 1; }
+/* Tarjetas muy breves: mostrar el horario y el estado, sin recortar letras. */
+.student-weekarea .student-slot.compact .student-type, .student-weekarea .student-slot.compact .student-places { display: none; }
+.student-weekarea .student-slot.micro .hours { display: none; }
+.student-weekarea .student-slot.micro .student-state { font-size: 9px; }
+.student-weekarea .student-slot.fanned { right: 25%; }
+.student-calendar-foot { margin: 10px 0 0; font-size: 11px; color: var(--muted); }
+.student-empty-state { margin: 8px 0 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--soft); color: var(--muted); font-size: 12px; }
+.student-yeararea .year-grid { grid-template-columns: repeat(6,minmax(0,155px)); }
+.student-year-day { font-variant-numeric: tabular-nums; }
+.student-year-day .student-dot { width: 4px; height: 4px; }
+.student-year-day:hover { border-color: var(--blue); }
+.student-year-day.today-selected { outline-color: var(--blue); }
+.student-dialog { width: min(410px,calc(100vw - 26px)); max-height: min(92vh,800px); overflow-y: auto; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); color: var(--ink); padding: 17px; box-shadow: 0 24px 65px #0004; }
+.student-dialog::backdrop { background: rgba(11,24,18,.52); }
+.student-dialog-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.student-dialog h2 { margin: 0 0 14px; font-size: 19px; }
+/* Resumen explícito: la fecha y las dos horas nunca se confunden. */
+.student-booking-summary { display: grid; gap: 5px; margin: 0; border: 1px solid var(--line); border-radius: 9px; background: var(--soft); padding: 11px 12px; font-size: 11px; }
+.student-summary-row { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 9px; align-items: baseline; }
+.student-summary-row dt { color: var(--muted); font-weight: 650; }
+.student-summary-row dd { margin: 0; font-weight: 750; overflow-wrap: anywhere; }
+/* Etiquetas alineadas; entradas compactas en lugar de controles de ancho completo. */
+.student-fields { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 10px 10px; align-items: center; margin: 14px 0; }
+.student-fields > label, .student-field-label { grid-column: 1; font-size: 11px; font-weight: 700; }
+.student-fields > label span, .student-field-label span { color: var(--red); }
+.student-fields > input, .student-fields > select { grid-column: 2; min-width: 0; height: 28px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); color: var(--ink); font-size: 11px; }
+.student-fields > input { width: min(100%, 260px); }
+.student-fields > select { width: min(100%, 150px); }
+/* Dos opciones visibles, táctiles y accesibles, sin desplegable. */
+.student-mode-options { grid-column: 2; display: flex; gap: 6px; flex-wrap: wrap; }
+.student-mode-option { position: relative; cursor: pointer; }
+.student-mode-option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.student-mode-option span { display: grid; place-items: center; min-width: 88px; min-height: 28px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); color: var(--ink); font-size: 11px; font-weight: 650; }
+.student-mode-option:has(input:checked) span { border-color: var(--green); background: color-mix(in srgb, var(--soft) 78%, var(--green) 22%); color: var(--ink); }
+.student-mode-option:has(input:focus-visible) span { outline: 2px solid var(--blue); outline-offset: 2px; }
+.student-confirm-date { display: flex; gap: 8px; align-items: center; font-size: 11px; margin: 9px 0 15px; }
+.student-confirm-date input { accent-color: var(--green); width: 16px; height: 16px; flex: 0 0 16px; margin: 0; }
+.student-submit { width: 100%; }
+.student-dialog .muted { font-size: 10px; line-height: 1.5; }
+.student-success-body { text-align: center; }
+.student-success-mark { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--soft); color: var(--green); font-size: 23px; }
+.student-success-body p { line-height: 1.55; }
+@media (max-width: 1100px) { .student-yeararea .year-grid { grid-template-columns: repeat(3,minmax(0,155px)); } }
+@media (max-width: 700px) { body { padding: 6px; } .student-shell { padding: 10px; } .student-intro { padding: 16px; } .student-intro-accent { display: none; } .student-toolbar { align-items: flex-start; } .student-controls { justify-content: flex-start; } .student-yeararea .year-grid { grid-template-columns: repeat(2,minmax(0,155px)); } }
+@media (max-width: 400px) { .student-intro h1 { font-size: 21px; } .student-controls { gap: 5px; } .student-teacher-label { width: 100%; } .student-legend { gap: 6px 10px; } }
+
+/* En teléfonos, las etiquetas van sobre los campos y el formulario ocupa
+   solo el ancho disponible, sin columnas apretadas ni desbordamientos. */
+@media (max-width: 500px) {
+  .student-dialog { padding: 15px; }
+  .student-fields { grid-template-columns: minmax(0,1fr); gap: 4px; }
+  .student-fields > label, .student-field-label, .student-fields > input,
+  .student-fields > select, .student-mode-options { grid-column: 1; }
+  .student-fields > label:not(:first-child), .student-field-label { margin-top: 7px; }
+  .student-fields > input { width: 100%; }
+  .student-summary-row { grid-template-columns: 104px minmax(0,1fr); gap: 7px; }
+}

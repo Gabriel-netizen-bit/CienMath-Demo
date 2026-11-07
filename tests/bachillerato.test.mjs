@@ -1,0 +1,38 @@
+/** V13.8.21 · Bachillerato de punta a punta en la DEMO local. */
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { createStore } from '../js/store.js';
+import { saveTeacher, teacherClassesKey, loadTeacherClasses } from '../js/teacher-repository.js';
+import { loadStudentCatalog, classTone, isClosed } from '../js/student-data.js';
+import { reserveDemoClass, listReservations } from '../js/reservation-service.js';
+const mem = new Map();
+globalThis.localStorage = { getItem: k => mem.get(k) ?? null, setItem: (k,v) => mem.set(k,v), removeItem: k => mem.delete(k) };
+const teacher = saveTeacher({ name: 'Docente Bachillerato', subjects: ['Física'] });
+const key = teacherClassesKey(teacher.id);
+const store = createStore(key);
+store.add([{ date:'2026-12-15', start:900, end:960, group:true, capacity:2, online:true, bachillerato:true },
+           { date:'2026-12-16', start:900, end:960, group:false, online:false }]);
+assert.equal(loadTeacherClasses(teacher.id)[0].bachillerato, true, 'persistencia de Bachillerato');
+assert.equal(loadTeacherClasses(teacher.id)[1].bachillerato, false, 'clase normal permanece normal');
+store.publish();
+let lesson = loadStudentCatalog().classes.find(c=>c.teacherId===teacher.id && c.bachillerato);
+assert.equal(classTone(lesson), 'bach-open');
+assert.equal(isClosed(lesson), false);
+const data = {teacherId:teacher.id, classId:lesson.id.split(':').at(-1), name:'Alumno Bachillerato',email:'bach@example.com',subject:'Física',grade:'bachillerato',mode:'online'};
+const r = reserveDemoClass(data);
+assert.equal(r.bachillerato, true, 'reserva indica el programa');
+assert.equal(listReservations()[0].bachillerato, true);
+lesson = loadStudentCatalog().classes.find(c=>c.teacherId===teacher.id && c.bachillerato);
+assert.equal(lesson.enrolled, 1);
+assert.equal(classTone(lesson), 'bach-open', 'resta un cupo');
+reserveDemoClass({...data,name:'Otra Alumna',email:'otra@example.com'});
+lesson = loadStudentCatalog().classes.find(c=>c.teacherId===teacher.id && c.bachillerato);
+assert.equal(classTone(lesson), 'bach-closed', 'se agotan los cupos');
+assert.equal(isClosed(lesson), true);
+const html = readFileSync(new URL('../horarios.html', import.meta.url), 'utf8');
+const main = readFileSync(new URL('../js/main.js', import.meta.url), 'utf8');
+for (const id of ['bachillerato', 'edit-bachillerato']) assert.ok(html.includes(`id="${id}"`));
+assert.match(main, /bachillerato: !!b\.bachillerato/, 'replicación conserva etiqueta');
+assert.match(main, /bachillerato: attrs\.bachillerato/, 'edición conserva etiqueta');
+assert.match(main, /batch\.proposals\.map\(\(\{[^}]*bachillerato/, 'coincidencias conservan etiqueta');
+console.log('Bachillerato: creación, persistencia, publicación, reserva, cupos, colores y editor OK.');

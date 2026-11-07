@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CienMath | Acceso del personal · Demo</title>
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/lobby.css"><link rel="stylesheet" href="css/acceso.css">
+</head>
+<body>
+<header class="lobby-header"><div class="header-inner">
+  <a class="identity" href="index.html" aria-label="Volver a CienMath"><svg class="identity-icon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="logoG" x1="0" x2="1" y1="1" y2="0"><stop stop-color="#45e88c"/><stop offset="1" stop-color="#43d7f5"/></linearGradient></defs><path d="M21 7v15L10 44a4 4 0 0 0 3.6 6h28.8a4 4 0 0 0 3.6-6L35 22V7" fill="none" stroke="url(#logoG)" stroke-width="3" stroke-linecap="round"/><path d="M16 38h24l5 9H11z" fill="#40e49e" opacity=".38"/><path d="M17 7h22" stroke="#55e5d8" stroke-width="3" stroke-linecap="round"/><ellipse cx="28" cy="29" rx="25" ry="10" fill="none" stroke="#70c9ff" stroke-width="2" transform="rotate(-35 28 29)"/><circle cx="28" cy="29" r="3.5" fill="#f3ffff"/></svg><span class="identity-type"><small>Academia Virtual</small><strong><em>Cien</em>Math</strong></span></a>
+  <div class="access-header-right"><a class="access-home" href="index.html">‹ Volver al inicio</a><button class="theme-control" data-theme-toggle aria-label="Cambiar tema" type="button">☾</button></div>
+</div></header>
+<main class="access-main">
+  <div class="access-aura" aria-hidden="true"></div>
+  <section class="access-panel" aria-labelledby="access-title">
+    <p class="kicker">ACCESO DEL PERSONAL · DEMO LOCAL</p>
+    <h1 id="access-title">Tu academia, <span>tu espacio.</span></h1>
+    <p class="access-intro">Elegí un perfil para explorar el funcionamiento del panel administrativo y los calendarios docentes.</p>
+    <form id="access-form">
+      <label for="access-profile">Ingresar como</label>
+      <select id="access-profile" required aria-describedby="access-role-hint"></select>
+      <p id="access-role-hint" class="access-hint">El administrador gestiona profesores; cada docente administra sus propios horarios.</p>
+      <button class="cta primary access-submit" type="submit">Entrar al panel <span aria-hidden="true">→</span></button>
+      <p id="access-feedback" role="status" aria-live="polite" class="access-feedback"></p>
+    </form>
+    <div class="access-notice"><strong>Solo demostración.</strong> No se solicitan contraseñas. Elegir un perfil no verifica identidad ni protege datos; la sesión y los horarios se guardan únicamente en este navegador.</div>
+  </section>
+</main>
+<footer class="lobby-footer"><div class="footer-inner"><div><strong>CienMath</strong><span>Aprender con método, avanzar con seguridad.</span></div><small>© 2026 CienMath · Demostración local</small></div></footer>
+<script type="module" src="js/acceso.js"></script>
+</body></html>

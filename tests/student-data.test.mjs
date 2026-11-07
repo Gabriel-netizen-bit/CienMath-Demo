@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import { loadStudentCatalog, isClosed, classTone, placesText } from '../js/student-data.js';
+const catalog = loadStudentCatalog();
+assert.equal(catalog.teachers.length, 1, 'administrador disponible como docente demo');
+assert.equal(catalog.teachers[0].id, 'cienmath-demo-admin');
+assert.deepEqual(catalog.classes, [], 'no se inventan horarios publicados');
+const partial = { group: true, capacity: 8, enrolled: 3, booked: false, bachillerato: true };
+assert.equal(isClosed(partial), false);
+assert.equal(classTone(partial), 'bach-open');
+assert.equal(placesText(partial), 'Grupal · 3/8');
+partial.enrolled = 8;
+assert.equal(isClosed(partial), true);
+assert.equal(classTone(partial), 'bach-closed');
+const individual = { group: false, booked: true, bachillerato: false };
+assert.equal(isClosed(individual), true);
+assert.equal(classTone(individual), 'common-closed');
+console.log('Contrato de datos vacío y estados de cupos: OK.');

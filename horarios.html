@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width,initial-scale=1" name="viewport"/>
+    <title>CienMath | Constructor de horarios</title>
+    <script src="js/theme.js"></script>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="css/site-chrome.css" rel="stylesheet"/>
+    <link href="css/tool-theme.css" rel="stylesheet"/>
+  </head>
+  <body style="visibility:hidden">
+    <main class="shell" id="app">
+      <!-- 01 · CABECERA: identidad y selector de tema -->
+      <header class="top row site-header">
+        <div>
+          <div class="brand"><b>Cien</b>Math</div>
+          <div class="muted" id="calendar-role-caption">Academia Virtual · Administración</div>
+        </div>
+        <div class="site-header-actions">
+          <a class="btn site-back" href="index.html">⌂ Inicio</a>
+          <button class="btn site-back" id="back" type="button" hidden>‹ Volver</button>
+          <button class="btn site-back" id="demo-logout" type="button">Salir · Demo</button><button aria-label="Cambiar tema" class="btn icon" id="theme" data-theme-toggle>☾</button>
+        </div>
+      </header>
+      <!-- 02 · INICIO: accesos a profesores y horarios -->
+      <section class="home" id="home">
+        <h2>¿Qué deseas hacer?</h2>
+        <div class="tiles">
+          <button class="tile" id="teachers"><span class="tile-icon">♙</span><b>Profesores</b><span class="muted">Administrar</span></button>
+          <button class="tile" id="enter"><span class="tile-icon">▦</span><b>Horarios</b><span class="muted">Construir</span></button>
+          <a class="tile" href="estudiantes.html" style="text-decoration:none"><span class="tile-icon">◫</span><b>Estudiantes</b><span class="muted">Ver horarios</span></a>
+        </div>
+      </section>
+      <!-- 03 · ÁREA DE TRABAJO: constructor de horarios -->
+      <section hidden="" id="work">
+        <div class="row toolbar">
+          <div class="actions">
+            <strong id="schedule-context-title">Constructor de horarios</strong>
+          </div>
+          <div class="actions">
+            <div aria-label="Vista del calendario" class="view-switch" role="group">
+              <button aria-pressed="true" class="btn view-choice" id="view-day">Día</button>
+              <button aria-pressed="false" class="btn view-choice" id="view-week">Semana</button>
+              <button aria-pressed="false" class="btn view-choice" id="view-year">Año</button>
+            </div>
+            <button class="btn primary" id="publish">Publicar</button>
+          </div>
+        </div>
+        <div class="layout">
+          <!-- Encabezado compartido: alineado sobre los tres calendarios -->
+            <div class="calhead">
+              <div>
+                <strong id="title"></strong>
+                <div class="muted" id="subtitle"></div>
+              </div>
+              <button class="btn" hidden="" id="select-day">Seleccionar día completo</button>
+              <div class="nav" hidden="" id="nav">
+                <button class="btn icon" id="prev">‹</button>
+                <input aria-label="Ir a una fecha" id="jump" type="date"/>
+                <button class="btn icon" id="next">›</button>
+              </div>
+              <div class="yearnav" hidden="" id="yearnav">
+                <button aria-label="Año anterior" class="btn icon" id="prevyear">‹</button>
+                <strong id="yearlabel"></strong>
+                <button aria-label="Año siguiente" class="btn icon" id="nextyear">›</button>
+              </div>
+              <span class="pill" id="badge"></span>
+            </div>
+          <!-- 04 · CONSTRUCTOR: creación y atributos de clases -->
+          <section aria-label="Crear clases" class="form">
+            <h3>Crear clases</h3>
+            <div class="field">
+              <label for="date">Fecha</label>
+              <input id="date" type="date"/>
+            </div>
+            <div class="field">
+              <label for="start">Hora de inicio</label>
+              <input id="start" step="300" type="time" value="07:00"/>
+            </div>
+            <div class="field">
+              <label for="duration">Duración de cada clase</label>
+              <select id="duration"></select>
+            </div>
+            <!-- Atributos iniciales: grupo, modalidad y reserva -->
+            <div aria-label="Atributos de las clases a crear" class="class-attributes">
+              <div class="attribute-line">
+                <label class="erase-switch attribute-switch" for="group"><span>Grupal</span><input id="group" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+                <label class="attribute-capacity" for="capacity">Cupo <input disabled="" id="capacity" max="999" min="2" step="1" type="number" value="5"/></label>
+              </div>
+              <div class="attribute-line">
+                <label class="erase-switch attribute-switch bach-switch" for="bachillerato"><span>Bachillerato</span><input id="bachillerato" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+              </div>
+              <div class="attribute-line">
+                <label class="erase-switch attribute-switch" for="online"><span id="mode-description">Presencial</span><input aria-label="Cambiar modalidad de clase" id="online" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+              </div>
+              <div class="attribute-line">
+                <label class="erase-switch attribute-switch booked-switch" for="booked"><span id="booking-description">No reservada</span><input aria-label="Cambiar reserva manual" id="booked" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+              </div>
+            </div>
+            <!-- Método de generación y cantidad / hora final -->
+            <div class="method">
+              <strong>Generar mediante</strong>
+              <div class="field">
+                <select id="mode">
+                  <option value="count">Cantidad de clases</option>
+                  <option value="end">Hora de finalización</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="count" id="targetlabel">Cantidad</label>
+                <select id="count"></select>
+                <input hidden="" id="end" step="300" type="time" value="12:00"/>
+              </div>
+            </div>
+            <div aria-live="polite" class="muted calc" id="calc" role="status"></div>
+            <div class="pair">
+              <button class="btn primary" id="add">+ Agregar</button>
+              <button aria-label="Abrir o cerrar herramientas" class="btn" id="repeat" title="Abrir o cerrar herramientas">▾</button>
+            </div>
+            <!-- HERRAMIENTAS: repetición, eliminación, reservas y selección -->
+
+          </section>
+          <!-- 05 · CALENDARIO: navegación y vistas -->
+          <section class="calendar">
+
+            <!-- Vista diaria -->
+            <div class="daymap" id="dayarea">
+              <div class="daylegend" id="daylegend">
+                <span></span>
+                <span class="existing-label">Clases existentes</span>
+                <span class="proposed-label" hidden="" id="proposed-label">Coincidencias</span>
+              </div>
+              <div class="timeline" id="timeline"></div>
+              <p class="muted empty" id="empty">Sin clases programadas para este día.</p>
+            </div>
+            <!-- Vista semanal -->
+            <div hidden="" id="weekarea">
+              <div class="week" id="week"></div>
+            </div>
+            <!-- Vista anual -->
+            <div hidden="" id="yeararea">
+              <div aria-label="Calendario anual" class="year-grid" id="yeargrid"></div>
+              <div class="year-legend">
+                <span><i class="dot draft"></i> Borrador</span>
+                <span><i class="dot published"></i> Publicada</span>
+                <span><i class="dot booked"></i> Reservada</span>
+              </div>
+            </div>
+            <p class="muted message" id="message" role="status"></p>
+          </section>
+        </div>
+        <!-- Panel flotante reutiliza íntegros los controles existentes. -->
+            <div aria-label="Herramientas de horario" class="repeat repeat-window" hidden="" id="rep" role="dialog" aria-modal="false">
+              <div class="repeat-window-head" id="repeat-drag">
+                <span>Herramientas de horario</span>
+                <button aria-label="Cerrar herramientas" class="repeat-window-close" id="repeat-close" type="button">×</button>
+              </div>
+              <div class="repeat-heading">
+                <strong id="repeat-title">Repetir horario</strong>
+                <label class="erase-switch" for="erase-mode"><span>Eliminar</span><input aria-label="Activar modo eliminar horarios" id="erase-mode" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+                <label class="erase-switch" for="reserve-mode"><span>Reservar</span><input aria-label="Gestionar reservas por rango" id="reserve-mode" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+              </div>
+              <label class="erase-switch selection-switch" for="select-mode"><span>Seleccionar en calendario</span><input aria-label="Seleccionar clases directamente en el calendario" id="select-mode" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+              <!-- Selección directa y replicación de clases seleccionadas -->
+              <div class="selection-tools" hidden="" id="selection-tools">
+                <p class="muted" id="selection-summary">0 clases seleccionadas</p>
+                <div class="repeat-dates">
+                  <div class="field">
+                    <label for="copy-to">Replicar desde</label>
+                    <input id="copy-to" type="date"/>
+                  </div>
+                  <div class="field">
+                    <label for="copy-until">Hasta</label>
+                    <input id="copy-until" type="date"/>
+                  </div>
+                </div>
+                <div class="field copy-days-field">
+                  <label>Días de la semana para replicar</label>
+                  <div aria-label="Días de repetición de las clases seleccionadas" class="days" id="copy-days" role="group"></div>
+                </div>
+                <p class="muted">Por defecto se marcan los días originales. Podés cambiarlos; Desde y Hasta solo delimitan el período. Las copias no incluyen reservas.</p>
+                <div class="selection-actions">
+                  <button class="btn primary" id="copy-selection" type="button">↻ Replicar</button>
+                  <button class="btn danger" id="delete-selection" type="button">Eliminar</button>
+                  <button class="btn" id="clear-selection" type="button">Limpiar</button>
+                </div>
+                <p class="muted">Día: botón «Día completo». Semana: toca el encabezado del día. Año: toca una fecha. Las tarjetas permiten seleccionar una a una.</p>
+              </div>
+              <!-- Acciones por rango: repetir, eliminar o reservar -->
+              <div id="range-controls">
+                <div class="reserve-options" hidden="" id="reserve-options">
+                  <label for="reserve-action">Acción</label>
+                  <select id="reserve-action">
+                    <option value="book">Reservar</option>
+                    <option value="release">Quitar reserva</option>
+                  </select>
+                </div>
+                <span class="muted" id="repeat-hint">Días de la semana</span>
+                <div class="days" id="days"></div>
+                <div class="repeat-dates">
+                  <div class="field">
+                    <label for="from">Desde</label>
+                    <input id="from" type="date"/>
+                  </div>
+                  <div class="field">
+                    <label for="until">Hasta</label>
+                    <input id="until" type="date"/>
+                  </div>
+                </div>
+                <p class="erase-summary" hidden="" id="erase-summary" role="status"></p>
+                <p class="reserve-summary" hidden="" id="reserve-summary" role="status"></p>
+                <button class="btn primary" id="apply">Aplicar repetición</button>
+              </div>
+            </div>
+        <!-- 06 · RESOLUCIÓN DE COINCIDENCIAS EN LOTE -->
+        <div class="batchbar" hidden="" id="batchbar">
+          <div>
+            <strong id="batchtitle">Coincidencias por resolver</strong>
+            <div class="muted" id="batchinfo"></div>
+          </div>
+          <div class="actions">
+            <button class="btn" hidden="" id="replace-batch">Reemplazar disponibles</button>
+            <button class="btn" hidden="" id="addfree">Agregar clases sin coincidencia</button>
+            <button class="btn primary" id="confirm">Confirmar cambios</button>
+            <button class="btn" id="cancel">Cancelar</button>
+          </div>
+        </div>
+        <!-- 07 · ESTADO GENERAL Y LIMPIEZA DE BORRADORES -->
+        <div class="row status">
+          <span class="muted" id="summary"></span>
+          <button class="btn plain" id="clear">Limpiar borradores</button>
+        </div>
+      </section>
+    <!-- Pie institucional compacto; contacto y enlaces se incorporarán con el lobby. -->
+    <footer class="site-footer" aria-label="Información institucional">
+      <span><strong>CienMath</strong> · Academia virtual de ciencias</span>
+      <span class="site-footer-meta">© 2026 CienMath · Todos los derechos reservados</span>
+    </footer>
+    </main>
+    <!-- 08 · EDITOR FLOTANTE DE CLASES -->
+    <div aria-label="Editor de clase" aria-modal="false" class="floating" hidden="" id="floating" role="dialog">
+      <div class="floathead" id="drag">
+        <div>
+          <strong id="edittitle">Editar clase</strong>
+          <div class="muted" id="editsubtitle"></div>
+        </div>
+        <button class="btn icon" id="closeedit" title="Cerrar editor">×</button>
+      </div>
+      <div class="floatbody">
+        <div class="row">
+          <strong class="edit-hours" id="edithours"></strong>
+          <span class="amberbadge" id="editbadge"></span>
+        </div>
+        <p class="validation" id="editinfo"></p>
+        <div id="timefields">
+          <div class="editgrid">
+            <div class="field">
+              <label for="editstart">Inicio</label>
+              <input id="editstart" step="300" type="time"/>
+            </div>
+            <div class="field">
+              <label for="editend">Final</label>
+              <input id="editend" step="300" type="time"/>
+            </div>
+          </div>
+          <button class="btn primary full" id="saveedit">Guardar ajuste de horario</button>
+        </div>
+        <div aria-label="Atributos de esta clase" class="edit-attributes" id="edit-attributes">
+          <div class="attribute-line">
+            <label class="erase-switch attribute-switch" for="edit-group"><span>Grupal</span><input id="edit-group" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+            <label class="attribute-capacity" for="edit-capacity">Cupo <input disabled="" id="edit-capacity" max="999" min="2" step="1" type="number" value="5"/></label>
+          </div>
+          <div class="attribute-line">
+            <label class="erase-switch attribute-switch bach-switch" for="edit-bachillerato"><span>Bachillerato</span><input id="edit-bachillerato" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+          </div>
+          <div class="attribute-line">
+            <label class="erase-switch attribute-switch" for="edit-online"><span>En línea</span><input id="edit-online" role="switch" type="checkbox"/><span aria-hidden="true" class="switch-track"></span></label>
+            <span class="muted" id="edit-mode-description">Presencial</span>
+          </div>
+          <button class="btn full" id="saveattributes">Guardar atributos de esta clase</button>
+          <button class="btn full reserve-button" id="togglebooking">Marcar como reservada</button>
+        </div>
+        <button class="btn full" hidden="" id="replace">Reemplazar clases disponibles</button>
+        <button class="btn danger full" id="delete">Eliminar clase</button>
+        <p class="validation" id="feedback"></p>
+      </div>
+    </div>
+    <!-- 09 · NOTIFICACIONES -->
+    <div class="toast-area" id="toast-area"></div>
+    <!-- 10 · PUNTO DE ENTRADA JAVASCRIPT -->
+    <script src="js/main.js" type="module"></script>
+  </body>
+</html>

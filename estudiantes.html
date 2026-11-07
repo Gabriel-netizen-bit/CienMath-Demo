@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CienMath | Horarios para estudiantes</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/site-chrome.css">
+  <link rel="stylesheet" href="css/student.css">
+  <link rel="stylesheet" href="css/tool-theme.css">
+</head>
+<body>
+  <main class="shell student-shell">
+    <header class="top row student-top site-header">
+      <div>
+        <span class="brand site-brand"><b>Cien</b>Math</span>
+        <div class="muted">Academia Virtual · Horarios para estudiantes</div>
+      </div>
+      <div class="student-top-actions site-header-actions">
+        <!-- Regreso al lobby institucional. -->
+        <a class="btn site-back student-back" href="index.html">‹ Inicio</a>
+        <button class="btn icon" id="student-theme" data-theme-toggle type="button" aria-label="Cambiar tema">☾</button>
+      </div>
+    </header>
+
+    <section class="student-intro" aria-labelledby="student-heading">
+      <div>
+        <p class="student-eyebrow">TU PRÓXIMA CLASE</p>
+        <h1 id="student-heading">Encontrá tu horario ideal.</h1>
+        <p>Elegí tu profesor, explorá sus horarios y seleccioná una clase disponible.</p>
+      </div>
+      <div class="student-intro-accent" aria-hidden="true">✳</div>
+    </section>
+
+    <section class="student-calendar" aria-label="Calendario de clases">
+      <div class="student-toolbar">
+        <div class="student-period">
+          <strong id="student-title">Horarios</strong>
+          <span class="muted" id="student-summary" role="status"></span>
+        </div>
+        <div class="student-controls">
+          <label class="student-teacher-label" for="student-teacher">Profesor</label>
+          <select id="student-teacher" aria-label="Elegir profesor"></select>
+          <div class="student-navigation" aria-label="Navegar por fechas">
+            <button class="btn icon" id="student-prev" type="button" aria-label="Anterior">‹</button>
+            <input id="student-date" type="date" aria-label="Ir a una fecha">
+            <button class="btn icon" id="student-next" type="button" aria-label="Siguiente">›</button>
+          </div>
+          <div class="student-view-switch" role="group" aria-label="Vista del calendario">
+            <button class="btn active" id="student-week" type="button" aria-pressed="true">Semana</button>
+            <button class="btn" id="student-year" type="button" aria-pressed="false">Año</button>
+          </div>
+        </div>
+      </div>
+      <div class="student-legend" aria-label="Significado de los colores">
+        <span><i class="student-dot common-open"></i> Clase disponible</span>
+        <span><i class="student-dot bach-open"></i> Bachillerato disponible</span>
+        <span><i class="student-dot common-closed"></i> Reservada</span>
+      </div>
+      <p class="student-empty-state" id="student-empty-state" role="status" hidden></p>
+      <div class="student-weekarea" id="weekarea">
+        <div class="week" id="week"></div>
+      </div>
+      <div class="student-yeararea" id="student-yeararea" hidden>
+        <div class="year-grid" id="student-yeargrid" aria-label="Meses del año"></div>
+      </div>
+      <p class="student-calendar-foot">Seleccioná una tarjeta disponible para reservar. Las clases reservadas permanecen visibles para consultar la ocupación.</p>
+    </section>
+    <!-- Pie institucional compacto; contacto y enlaces se incorporarán con el lobby. -->
+    <footer class="site-footer" aria-label="Información institucional">
+      <span><strong>CienMath</strong> · Academia virtual de ciencias</span>
+      <span class="site-footer-meta">© 2026 CienMath · Todos los derechos reservados</span>
+    </footer>
+  </main>
+
+  <dialog id="student-booking" class="student-dialog" aria-labelledby="student-booking-title">
+    <form id="student-booking-form">
+      <div class="student-dialog-header">
+        <div><span class="student-eyebrow">SOLICITUD DE RESERVA</span><h2 id="student-booking-title">Reservar clase</h2></div>
+        <button type="button" class="btn icon" id="student-close" aria-label="Cerrar ventana">×</button>
+      </div>
+      <dl id="student-booking-summary" class="student-booking-summary"></dl>
+      <div class="student-fields">
+        <label for="student-name">Nombre completo <span aria-hidden="true">*</span></label>
+        <input id="student-name" name="name" required maxlength="100" autocomplete="name" placeholder="Tu nombre completo">
+        <label for="student-email">Correo electrónico <span aria-hidden="true">*</span></label>
+        <input id="student-email" name="email" type="email" required maxlength="150" autocomplete="email" placeholder="tu@correo.com">
+        <label for="student-subject">Materia <span aria-hidden="true">*</span></label>
+        <select id="student-subject" name="subject" required>
+          <option value="">Seleccioná una materia</option>
+          <option>Matemática</option><option>Física</option><option>Química</option><option>Biología</option>
+        </select>
+        <label for="student-grade">Nivel <span aria-hidden="true">*</span></label>
+        <select id="student-grade" name="grade" required>
+          <option value="">Seleccioná tu nivel</option>
+          <option value="7">Séptimo</option><option value="8">Octavo</option><option value="9">Noveno</option>
+          <option value="10">Décimo</option><option value="11">Undécimo</option><option value="bachillerato">Bachillerato</option>
+        </select>
+        <span class="student-field-label" id="student-mode-label">Modalidad <span aria-hidden="true">*</span></span>
+        <div class="student-mode-options" role="radiogroup" aria-labelledby="student-mode-label">
+          <label class="student-mode-option"><input type="radio" name="mode" value="onsite" checked required><span>Presencial</span></label>
+          <label class="student-mode-option"><input type="radio" name="mode" value="online" required><span>En línea</span></label>
+        </div>
+        <p class="student-mode-hint" id="student-mode-hint"></p>
+      </div>
+      <label class="student-confirm-date"><input id="student-ack" type="checkbox" required> Confirmo la fecha y hora indicadas.</label>
+      <button class="btn primary student-submit" type="submit">Confirmar reservación</button>
+      <p class="muted" id="student-reservation-status" role="status">Confirmación local de demostración. No se enviarán correos ni SMS reales.</p>
+    </form>
+    <div class="student-success-body" id="student-booking-success" hidden role="status" aria-live="polite">
+      <span class="student-success-mark" aria-hidden="true">✓</span>
+      <h2>¡Reservación confirmada!</h2>
+      <p><strong>DEMO LOCAL</strong> · El cupo quedó reservado en este navegador.</p>
+      <p id="student-success-detail"></p>
+      <p>Referencia: <strong id="student-success-reference"></strong></p>
+      <p class="muted">No se han enviado correos ni SMS. La confirmación real requiere conectar un backend.</p>
+      <button class="btn primary student-submit" type="button" id="student-success-close">Cerrar</button>
+    </div>
+  </dialog>
+  <script type="module" src="js/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+/* V13.8.20 · Unificación visual de herramientas con lobby.
+   ÚNICAMENTE CSS: no altera geometría de calendarios, lógica ni disposición.
+   Aplica a profesores, horarios y estudiantes. */
+:root{--bg:#f1f7f8;--surface:#fff;--soft:#e9f5f4;--ink:#0c293a;--muted:#526e7c;--line:#cde1e5;--green:#149f80;--blue:#258eb9;--red:#bd5261}
+:root.dark{--bg:#061322;--surface:#0b2033;--soft:#123046;--ink:#f3faff;--muted:#b4cad6;--line:#285063;--green:#58e3ad;--blue:#5bd3ef;--red:#f195a5;--card-published:rgba(61,161,207,.23);--card-booked:rgba(153,113,220,.31)}
+body{background:radial-gradient(ellipse at 85% 0%,rgba(46,184,174,.08),transparent 45%),var(--bg)}
+.shell{border-color:var(--line);box-shadow:0 12px 48px rgba(1,32,49,.05)}
+:root.dark .shell{background:linear-gradient(145deg,rgba(10,35,54,.65),var(--bg) 75%);box-shadow:0 12px 45px rgba(0,0,0,.14)}
+.site-header{border-radius:16px;background:color-mix(in srgb,var(--surface) 88%,var(--bg) 12%);backdrop-filter:blur(18px);border-color:var(--line);box-shadow:0 7px 24px rgba(0,37,52,.09)}
+:root.dark .site-header{background:rgba(7,26,44,.94);box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.brand{letter-spacing:-.8px}.brand b{color:var(--green)}
+.btn,.teacher-actions .btn{border-radius:999px;transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}
+.btn:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(45,199,178,.14)}
+.btn.primary,.teachers-creation-toggle,.student-submit{background:linear-gradient(105deg,#3cde97,#3ac8e5);color:#052839;border-color:transparent;font-weight:800;box-shadow:0 4px 16px rgba(47,214,176,.16)}
+.btn.primary:not(:disabled):hover{background:linear-gradient(105deg,#65efac,#60d9ef);box-shadow:0 6px 23px rgba(49,221,179,.28)}
+.btn.icon{border-radius:50%}
+.student-intro{border-radius:22px;background:radial-gradient(ellipse at 90% 20%,rgba(50,207,171,.14),transparent 55%),linear-gradient(125deg,var(--surface),var(--soft));border-color:var(--line)}
+:root.dark .student-intro{background:radial-gradient(ellipse at 90% 20%,rgba(57,205,165,.16),transparent 55%),linear-gradient(115deg,#091e32,#0c3143)}
+.student-intro h1{font-size:clamp(24px,3vw,37px);letter-spacing:-.04em}
+.student-intro-accent{color:var(--green);opacity:.55;text-shadow:0 0 24px rgba(65,228,176,.35)}
+.student-calendar,.teachers-editor,.teachers-directory,.student-dialog{border-radius:19px;border-color:var(--line)}
+.student-weekarea,.student-yeararea{border-radius:15px;border-color:var(--line)}
+.student-controls select,.student-controls input,.student-fields input,.student-fields select{border-radius:12px}
+.student-view-switch .active,.view-switch .btn.active{border-radius:999px;background:linear-gradient(105deg,rgba(63,219,162,.18),rgba(66,185,229,.17));color:var(--green)}
+.teacher-card:hover{border-color:var(--green)}
+:root.dark .teachers-editor,:root.dark .teachers-list,:root.dark .teachers-note,:root.dark .teachers-table-head,:root.dark .teachers-list-head{background:#0e2a3f}
+:root.dark .teacher-card{background:linear-gradient(95deg,#0b2439,#0e2c3e)}
+:root.dark .teacher-chip,:root.dark .teachers-subject-option{background:#17384a;color:var(--ink)}
+:root.dark .teachers-field input{background:#092338}
+.student-mode-hint{grid-column:1/-1;margin:0;color:var(--muted);font-size:10px;text-align:right}
+.student-mode-option input:disabled+span{opacity:.43;cursor:not-allowed}
+.student-success-body{padding:15px 3px 4px}.student-success-body h2{margin:15px 0}.student-success-body strong{overflow-wrap:anywhere}
+@media(max-width:680px){.site-header{border-radius:12px}.student-intro{border-radius:17px}}
+
+/* Portada de horarios pública: misma atmósfera del hero del lobby. */
+.student-shell .student-top{background:rgba(5,18,33,.96);color:#f4fbff;border-color:rgba(93,211,216,.25);padding:12px 18px;margin:-8px -8px 18px}
+.student-shell .student-top .brand{color:#f4fbff;font-size:24px}
+.student-shell .student-top .brand b{background:linear-gradient(95deg,#59e5a4,#58c5ef);background-clip:text;color:transparent}
+.student-shell .student-top .muted{color:#bbd3dd}
+.student-shell .student-top .btn{background:rgba(10,39,58,.8);border:1px solid rgba(87,218,217,.42);color:#ecfbff}
+.student-shell .student-top .btn:hover{box-shadow:0 0 19px rgba(64,225,187,.25)}
+.student-shell .student-intro,:root.dark .student-shell .student-intro{position:relative;isolation:isolate;overflow:hidden;color:#f7fcff;background:linear-gradient(90deg,rgba(4,19,35,.98) 0%,rgba(5,26,44,.95) 42%,rgba(4,27,43,.5) 75%),url('../assets/cienmath-ciencia-hero.webp') center right/cover;border:1px solid rgba(77,215,204,.26);min-height:160px}
+.student-shell .student-intro:before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 70% 70%,rgba(46,216,177,.13),transparent 50%)}
+.student-shell .student-intro h1{color:#f8fcff}
+.student-shell .student-intro p:not(.student-eyebrow){color:#c5e0eb}
+.student-shell .student-intro .student-eyebrow{color:#5ae9b3}
+.student-shell .student-intro-accent{color:#60d7f1;opacity:.75}
+.student-shell .student-calendar{box-shadow:0 14px 45px rgba(0,38,57,.07)}
+.student-shell .student-view-switch .btn.active{color:var(--green)}
+.student-shell .student-calendar-foot{font-size:11px}
+@media(max-width:680px){.student-shell .student-top{padding:10px 12px;margin:-4px -4px 14px}.student-shell .student-top .brand{font-size:21px}.student-shell .student-intro{background-position:center right;min-height:145px}}

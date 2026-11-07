@@ -1,0 +1,1975 @@
+/* ===========================================================================
+   CIENMATH — HOJA DE ESTILOS
+   Organización: estilos base + ajustes históricos por versión (V13.1–V13.8.4).
+
+   IMPORTANTE: se conserva el orden original de la cascada CSS para no alterar
+   prioridades ni la presentación aprobada. Los bloques por versión reflejan
+   ajustes sucesivos; no deben reorganizarse sin pruebas de regresión.
+
+   Limpieza de esta edición:
+   - Se eliminó una regla violeta exactamente duplicada.
+   - Se recuperó sintaxis CSS escapada por el formato Markdown del pegado.
+   - Se aplicó sangría y separación de declaraciones para facilitar su lectura.
+   =========================================================================== */
+
+/* 00 — BASE: temas, controles, distribución y componentes del calendario */
+:root {
+  --bg: #f8faf7;
+  --surface: #fff;
+  --soft: #eef3ef;
+  --ink: #25372b;
+  --muted: #637669;
+  --line: #d7e3d9;
+  --green: #248363;
+  --amber: #b88038;
+  --blue: #5382a8;
+  --red: #b65c4a;
+  color-scheme: light;
+}
+:root.dark {
+  --bg: #121b16;
+  --surface: #1c2921;
+  --soft: #27372d;
+  --ink: #edf3ed;
+  --muted: #a7b8aa;
+  --line: #3b5040;
+  --green: #64c99d;
+  --amber: #e5a45e;
+  --blue: #85b5d8;
+  --red: #ee9582;
+  color-scheme: dark;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 18px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 13px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+button,input,select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+[hidden] {
+  display: none !important;
+}
+.shell {
+  max-width: 1450px;
+  margin: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 430px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.brand {
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: -.7px;
+}
+.brand b {
+  color: var(--green);
+}
+.muted {
+  font-size: 11px;
+  color: var(--muted);
+}
+.btn {
+  border: 1px solid var(--line);
+  background: var(--soft);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 650;
+}
+.btn:hover {
+  border-color: var(--green);
+}
+.btn.primary {
+  background: #267e60;
+  color: #fff;
+  border-color: #267e60;
+}
+.btn.danger {
+  color: var(--red);
+}
+.btn.icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+.btn.plain {
+  background: transparent;
+  border-color: transparent;
+}
+.btn:disabled {
+  opacity: .42;
+  cursor: not-allowed;
+}
+.full {
+  width: 100%;
+}
+.home {
+  min-height: 325px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.home h2 {
+  font-size: 19px;
+  margin: 0;
+}
+.tiles {
+  display: flex;
+  gap: 12px;
+}
+.tile {
+  width: 136px;
+  height: 112px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.tile:hover {
+  border-color: var(--green);
+  background: var(--soft);
+}
+.tile-icon {
+  font-size: 27px;
+  color: var(--green);
+}
+.toolbar {
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+.toolbar strong {
+  font-size: 16px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 166px minmax(0,1fr);
+  grid-template-areas: ". heading" "tools calendar";
+  grid-template-rows: auto auto;
+  gap: 0 20px;
+  align-items: start;
+}
+/* La cabecera queda sobre el calendario; el constructor empieza en el
+   mismo borde superior que el área de Día / Semana / Año. */
+.layout > .calhead { grid-area: heading; }
+.layout > .form { grid-area: tools; }
+.layout > .calendar { grid-area: calendar; }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.form h3 {
+  font-size: 15px;
+  margin: 0;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+}
+input,select {
+  height: 35px;
+  width: 100%;
+  min-width: 0;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--ink);
+  padding: 5px 7px;
+  font-size: 12px;
+  color-scheme: inherit;
+}
+select {
+  appearance: auto;
+}
+select option {
+  background: var(--surface);
+  color: var(--ink);
+}
+input:focus,select:focus {
+  outline: 1px solid var(--green);
+}
+.method {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.method strong {
+  font-size: 12px;
+}
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.repeat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--soft);
+  border-radius: 9px;
+  padding: 10px;
+}
+/* Repetición desacoplada del ancho del constructor (166 px).
+   Se mantiene visible al navegar y puede moverse sin reflujo. */
+.repeat-window {
+  position: fixed;
+  z-index: 9500;
+  width: 230px;
+  max-width: calc(100vw - 16px);
+  max-height: min(640px, calc(100vh - 16px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(0,0,0,.19);
+  color: var(--ink);
+}
+.repeat-window-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: -10px -10px 8px;
+  padding: 7px 10px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  border-radius: 9px 9px 0 0;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  font-size: 11px;
+  font-weight: 750;
+}
+.repeat-window-head:active { cursor: grabbing; }
+.repeat-window-close {
+  width: 25px;
+  height: 25px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7,minmax(0,1fr));
+  gap: 3px;
+}
+.days button {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 5px;
+  padding: 6px 0;
+  font-size: 10px;
+}
+.days button.active {
+  background: #267e60;
+  color: #fff;
+  border-color: #267e60;
+}
+.calendar {
+  min-width: 0;
+}
+.calhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.calhead strong {
+  font-size: 16px;
+}
+.pill {
+  background: rgba(36,131,99,.12);
+  color: var(--green);
+  font-size: 10px;
+  border-radius: 20px;
+  padding: 5px 8px;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.nav input {
+  width: 119px;
+  height: 32px;
+  font-size: 11px;
+}
+.daymap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  min-height: 280px;
+}
+.daylegend {
+  display: grid;
+  grid-template-columns: 48px minmax(0,1fr);
+  gap: 8px;
+  margin-bottom: 9px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 750;
+}
+.daylegend.conflicting {
+  grid-template-columns: 48px minmax(0,1fr) minmax(0,1fr);
+}
+.existing-label {
+  color: var(--green);
+}
+.proposed-label {
+  color: var(--amber);
+}
+.timeline {
+  display: grid;
+  grid-template-columns: 48px minmax(0,1fr);
+  gap: 8px;
+}
+.timeline.conflicting {
+  grid-template-columns: 48px minmax(0,1fr) minmax(0,1fr);
+}
+.axis {
+  position: relative;
+}
+.axislabel {
+  position: absolute;
+  right: 1px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  opacity: .72;
+}
+.track {
+  position: relative;
+  border-left: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(120,130,120,.035);
+  min-width: 0;
+}
+.tick {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--line);
+  opacity: .55;
+  pointer-events: none;
+}
+.timecard {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  border: 1px solid rgba(36,131,99,.45);
+  background: rgba(36,131,99,.12);
+  border-radius: 7px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  text-align: left;
+  overflow: hidden;
+  z-index: 2;
+  color: var(--ink);
+}
+.timecard.new {
+  background: rgba(184,128,56,.22);
+  border-color: var(--amber);
+}
+.timecard.published {
+  background: rgba(83,130,168,.13);
+  border-color: var(--blue);
+}
+.timecard.booked {
+  border-color: var(--red);
+}
+.timecard.active {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+  z-index: 4;
+}
+.timecard .hours {
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.timecard .tag {
+  font-size: 10px;
+  color: var(--green);
+}
+.timecard.new .tag {
+  color: var(--amber);
+}
+.timecard.booked .tag {
+  color: var(--red);
+}
+.timecard.tiny {
+  padding: 3px 5px;
+  justify-content: center;
+}
+.timecard.tiny .tag {
+  display: none;
+}
+.timecard.tiny .hours {
+  font-size: 10px;
+}
+.empty {
+  padding: 12px 0;
+  text-align: center;
+}
+.week {
+  display: grid;
+  grid-template-columns: repeat(7,minmax(0,1fr));
+  gap: 6px;
+  width: 100%;
+}
+.weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 750;
+  padding: 3px 0 9px;
+}
+.lane {
+  position: relative;
+  min-width: 0;
+  background: transparent;
+  border-radius: 6px;
+  min-height: 130px;
+}
+.weekcard {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  border: 1px solid rgba(36,131,99,.35);
+  border-radius: 7px;
+  background: rgba(36,131,99,.09);
+  color: var(--ink);
+  padding: 7px 3px;
+  overflow: hidden;
+  text-align: center;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+.weekcard .hours {
+  font-size: 10px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.weekcard .tag {
+  font-size: 9px;
+  color: var(--green);
+}
+.weekcard.new {
+  left: 25%;
+  right: 2px;
+  z-index: 3;
+  background: rgba(222,158,62,.70);
+  border-color: var(--amber);
+  color: var(--ink);
+}
+.weekcard.new .tag {
+  color: var(--ink);
+  font-weight: 750;
+}
+.weekcard.active {
+  outline: 2px solid var(--amber);
+  z-index: 4;
+}
+.weekcard.booked {
+  border-color: var(--red);
+}
+.weekcard.published:not(.new) {
+  border-color: var(--blue);
+  background: rgba(83,130,168,.15);
+}
+.floating {
+  position: fixed;
+  z-index: 9999;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(375px,94vw);
+  max-height: 85vh;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 20px 60px rgba(0,0,0,.32);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.floathead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  background: var(--soft);
+  padding: 10px 12px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.floathead strong {
+  font-size: 14px;
+}
+.floatbody {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  min-height: 0;
+}
+.amberbadge {
+  display: inline-block;
+  white-space: nowrap;
+  background: rgba(184,128,56,.16);
+  color: var(--amber);
+  border-radius: 20px;
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 800;
+}
+.editgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.edit-hours {
+  font-size: 16px;
+}
+.validation {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+.status {
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+.batchbar {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 12px 0;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.batchbar .muted {
+  min-width: 130px;
+}
+.message {
+  margin-top: 9px;
+  min-height: 15px;
+}
+@media (max-width:700px) {
+  body {
+    padding: 6px;
+  }
+  .shell {
+    padding: 10px;
+  }
+  .week {
+    gap: 3px;
+  }
+  .weekcard .hours {
+    font-size: 9px;
+  }
+  .weekcard .tag {
+    font-size: 8px;
+  }
+  .timecard .hours {
+    font-size: 11px;
+  }
+}
+
+/* ================================================================
+
+   V13.1 — CALIBRACIÓN DE ANCHOS (sin modificar estilos aprobados)
+
+   Se mantienen los componentes originales; solo se limitan medidas.
+
+   ================================================================ */
+.shell {
+  max-width: 1250px;
+}
+.layout {
+  grid-template-columns: 166px minmax(0,1050px);
+  justify-content: center;
+  column-gap: 16px;
+}
+.calendar {
+  width: 100%;
+  max-width: 1050px;
+}
+.form {
+  width: 100%;
+  max-width: 166px;
+  height: clamp(320px, 76vh, 640px);
+  min-height: 320px;
+  max-height: 640px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  align-self: start;
+}
+/* Controles del constructor: misma altura, radio y espaciado. */
+.form .field input,.form .field select {
+  width: min(100px, 100%);
+  max-width: 100%;
+  height: 28px;
+  padding: 4px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+/* El panel flotante tiene un ancho propio de 230 px;
+   no hereda el ancho de la columna del constructor. */
+.days {
+  grid-template-columns: repeat(7,minmax(0,1fr));
+}
+.days button {
+  min-width: 0;
+}
+
+/* ================================================================
+
+   V13.2 — CORRECCIÓN QUIRÚRGICA: CALENDARIO SEMANAL
+
+   La posición temporal prevalece sobre alturas mínimas; las tarjetas
+
+   contiguas no se pisan. Abanico solo para coincidencias reales.
+
+   ================================================================ */
+.weekcard {
+  min-height: 0;
+}
+.weekcard.compact {
+  padding: 2px 2px;
+  gap: 0;
+}
+.weekcard.compact .hours {
+  font-size: 9px;
+  line-height: 1.1;
+}
+.weekcard.compact .tag {
+  display: none;
+}
+.weekcard.micro {
+  padding: 0 1px;
+}
+.weekcard.micro .hours {
+  font-size: 0;
+}
+.weekcard.micro::after {
+  content: "·";
+  font-size: 12px;
+  line-height: 1;
+  color: var(--green);
+}
+.weekcard.fanned:not(.new) {
+  right: 25%;
+  z-index: 2;
+}
+.weekcard.fanned.new {
+  left: 25%;
+  right: 2px;
+  z-index: 3;
+  background: rgba(222,158,62,.65);
+}
+.weekcard.new:not(.fanned) {
+  left: 3px;
+  right: 3px;
+  background: rgba(36,131,99,.09);
+  border-color: rgba(36,131,99,.35);
+}
+
+/* Limitar la longitud de tarjetas en días sin coincidencias. */
+.daymap:not(:has(.timeline.conflicting)) {
+  max-width: 530px;
+}
+@media (max-width:600px) {
+  .daymap:not(:has(.timeline.conflicting)) {
+    max-width: 100%;
+  }
+}
+
+/* ================================================================
+
+   V13.3 — AJUSTES AISLADOS DE PROPORCIÓN
+
+   1. El mapa diario conserva ancho suficiente para dos carriles.
+
+   2. Las tarjetas de un solo carril tienen un máximo legible.
+
+   3. Los controles del constructor no se estiran en pantallas medianas.
+
+   ================================================================ */
+.daymap:not(:has(.timeline.conflicting)) {
+  max-width: 700px;
+}
+.daymap:not(:has(.timeline.conflicting)) .timeline,
+
+.daymap:not(:has(.timeline.conflicting)) .daylegend {
+  grid-template-columns: 48px minmax(0,315px);
+}
+.daymap .timeline.conflicting,
+
+.daymap .daylegend.conflicting {
+  grid-template-columns: 48px minmax(0,1fr) minmax(0,1fr);
+}
+
+/* Los horarios siguen proporcionales a los minutos, no al ancho de pantalla. */
+.form .field input[type=date] {
+  max-width: 100px;
+}
+.form .field input[type=time] {
+  max-width: 100px;
+}
+.form .field select {
+  max-width: 100px;
+}
+.form #duration {
+  max-width: 154px;
+}
+.form #count {
+  max-width: 125px;
+}
+.form .pair {
+  max-width: 230px;
+}
+.form .repeat {
+  max-width: 100%;
+}
+@media (min-width:851px) {
+  .form {
+    max-width: 166px;
+  }
+}
+@media (max-width:480px) {
+  .daymap:not(:has(.timeline.conflicting)) .timeline,
+
+  .daymap:not(:has(.timeline.conflicting)) .daylegend {
+    grid-template-columns: 38px minmax(0,1fr);
+  }
+  .daymap .timeline.conflicting,.daymap .daylegend.conflicting {
+    grid-template-columns: 38px minmax(0,1fr) minmax(0,1fr);
+  }
+}
+
+/* Las propuestas pendientes también se distinguen en vista semanal. */
+.weekcard.new:not(.fanned) {
+  left: 3px;
+  right: 3px;
+  background: rgba(222,158,62,.25);
+  border-color: var(--amber);
+}
+
+/* ================================================================
+
+   V13.4 — MODO ELIMINAR / REPETICIÓN CON RANGO
+
+   Añadidos aislados: no modifica geometría aprobada de los calendarios.
+
+   ================================================================ */
+/* Encabezado estable: el título no desplaza los interruptores. */
+.repeat-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+}
+.repeat-heading > strong {
+  grid-column: 1;
+}
+.repeat-heading > label:last-child {
+  justify-self: start;
+}
+/* Con 230 px, los dos interruptores vuelven a compartir una fila. */
+.repeat-window .repeat-heading {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.repeat-window .repeat-heading > strong {
+  grid-column: 1 / -1;
+}
+
+.erase-switch {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+.erase-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+.switch-track {
+  width: 31px;
+  height: 18px;
+  border-radius: 20px;
+  background: var(--line);
+  border: 1px solid var(--muted);
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.switch-track:before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--surface);
+  border-radius: 50%;
+  transition: transform .15s;
+}
+.erase-switch input:checked+.switch-track {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.erase-switch[for="reserve-mode"] input:checked+.switch-track {
+  background: var(--violet);
+  border-color: var(--violet);
+}
+.erase-switch input:checked+.switch-track:before {
+  transform: translateX(13px);
+}
+.erase-switch input:focus-visible+.switch-track {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+.repeat-dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.repeat-dates .field {
+  min-width: 0;
+}
+.repeat-dates input[type=date] {
+  font-size: 11px;
+  padding: 5px 3px;
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
+}
+.erase-summary {
+  margin: 0;
+  font-size: 11px;
+  color: var(--amber);
+  line-height: 1.4;
+}
+.erase-mode .repeat {
+  background: color-mix(in srgb, var(--soft) 88%, var(--amber) 12%);
+  outline: 1px solid var(--amber);
+}
+.erase-mode .repeat-heading strong {
+  color: var(--amber);
+}
+.erase-mode .days button.active {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #fff;
+}
+.erase-mode .btn.erase-action {
+  background: #9a6332;
+  color: #fff;
+  border-color: #9a6332;
+}
+.erase-mode .daymap,.erase-mode #weekarea {
+  outline: 1px solid rgba(184,128,56,.6);
+  border-radius: 12px;
+}
+.erase-mode .daymap .existing-label {
+  color: var(--amber);
+}
+.erase-mode .timecard.erase-target,.erase-mode .weekcard.erase-target {
+  background: rgba(184,128,56,.30) !important;
+  border: 2px solid var(--amber) !important;
+  color: var(--ink);
+  z-index: 4;
+}
+.erase-mode .timecard.erase-target .tag,.erase-mode .weekcard.erase-target .tag {
+  color: var(--amber);
+}
+.erase-mode .timecard.erase-protected,.erase-mode .weekcard.erase-protected {
+  opacity: .72;
+}
+@media (max-width:480px) {
+  .repeat-dates {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ================================================================
+
+   V13.5 — VISTA ANUAL / RESERVADAS VIOLETA / FORMULARIO RESPONSIVE
+
+   Los calendarios día y semana conservan sus dimensiones y lógica.
+
+   ================================================================ */
+:root {
+  --violet: #8766bd;
+}
+:root.dark {
+  --violet: #bea2f2;
+}
+.timecard.booked,.weekcard.booked {
+  border-color: var(--violet);
+  background: rgba(135,102,189,.19);
+}
+.timecard.booked .tag,.weekcard.booked .tag {
+  color: var(--violet);
+}
+.view-switch {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.view-switch .btn {
+  border-color: transparent;
+  background: transparent;
+  padding: 6px 11px;
+}
+.view-switch .btn.active {
+  background: var(--soft);
+  border-color: var(--line);
+  color: var(--green);
+}
+.yearnav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.yearnav strong {
+  min-width: 42px;
+  text-align: center;
+  font-size: 13px;
+}
+#yeararea {
+  padding: 13px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.year-grid {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(0,155px));
+  gap: 12px 10px;
+  justify-content: center;
+}
+.year-month {
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 8px 5px 7px;
+}
+.year-month h4 {
+  text-transform: capitalize;
+  text-align: center;
+  margin: 0 0 7px;
+  font-size: 12px;
+  font-weight: 750;
+}
+.year-days {
+  display: grid;
+  grid-template-columns: repeat(7,minmax(0,1fr));
+  grid-template-rows: 16px repeat(6,24px);
+  gap: 2px 0;
+  align-items: center;
+}
+.year-weekday {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 700;
+  text-align: center;
+}
+.year-day {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  min-width: 0;
+  padding: 0 0 5px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  font-size: 10px;
+  border-radius: 5px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+.year-day:hover,.year-day:focus-visible {
+  background: var(--soft);
+  border-color: var(--green);
+  outline: none;
+}
+.year-day.today-selected {
+  outline: 1px solid var(--green);
+  outline-offset: -1px;
+}
+.year-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1px;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+}
+.dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+.dot.published {
+  background: var(--blue);
+}
+.dot.booked {
+  background: var(--violet);
+}
+.dot.conflict {
+  background: var(--amber);
+}
+.year-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 13px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.year-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+@media (max-width:1100px) {
+  .year-grid {
+    grid-template-columns: repeat(3,minmax(0,155px));
+  }
+}
+
+/* ================================================================
+
+   CONTENEDORES Y RESPONSIVE COMPARTIDOS — DÍA / SEMANA / AÑO
+
+   Un único ancho de calendario y un único flujo de formulario.
+
+   ================================================================ */
+/* Las tres vistas comparten exactamente la misma altura exterior.
+   El contenido extenso se desplaza por dentro, sin alargar la página. */
+.daymap, #weekarea, #yeararea {
+  width: 100%;
+  height: clamp(320px, 76vh, 640px);
+  min-height: 320px;
+  max-height: 640px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+}
+#weekarea {
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+/* El fondo diario ocupa todo el ancho del calendario; las tarjetas
+
+   siguen teniendo su ancho legible dentro de la línea temporal. */
+.daymap:not(:has(.timeline.conflicting)) {
+  max-width: 100%;
+}
+@media (max-width:850px) {
+  .layout {
+    grid-template-columns: minmax(0,1fr);
+    grid-template-areas: "heading" "tools" "calendar";
+    gap: 12px;
+    justify-content: stretch;
+  }
+  .calendar {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    align-content: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    max-height: 640px;
+    overflow-y: auto;
+    gap: 10px 12px;
+  }
+  .form h3 {
+    flex: 0 0 100%;
+    margin: 0;
+  }
+  .form>.field {
+    flex: 0 1 175px;
+    width: 175px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .form>.field input,.form>.field select {
+    width: 100%;
+  }
+
+  /* Generar mediante y Cantidad: dos controles alineados y compactos. */
+  .form .method {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    align-self: flex-end;
+    flex: 0 1 355px;
+    width: 355px;
+    max-width: 100%;
+    gap: 8px;
+  }
+  .form .method strong {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 16px;
+  }
+  .form .method .field:first-of-type {
+    flex: 1 1 190px;
+    min-width: 0;
+    padding-top: 19px;
+  }
+  .form .method .field:last-of-type {
+    flex: 1 1 125px;
+    min-width: 0;
+  }
+  .form .method .field select,.form .method .field input {
+    width: 100%;
+    max-width: 100%;
+  }
+  .form .calc {
+    flex: 0 1 170px;
+    min-width: 130px;
+    align-self: center;
+  }
+  .form .pair {
+    display: flex;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+    gap: 6px;
+    align-self: flex-end;
+  }
+  .form .pair .btn {
+    min-width: 120px;
+  }
+  .form .repeat {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    align-self: flex-start;
+  }
+}
+@media (max-width:480px) {
+  .form>.field {
+    flex-basis: 145px;
+  }
+  .form .method {
+    flex-basis: 100%;
+  }
+  .form .pair {
+    flex-wrap: wrap;
+  }
+  .form .pair .btn {
+    min-width: 110px;
+  }
+}
+
+/* V13.6 — Atributos compactos por clase; sin modificar los controles anteriores. */
+.class-attributes,.edit-attributes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.class-attributes {
+  padding: 7px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.edit-attributes {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.attribute-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 27px;
+}
+.attribute-switch {
+  font-size: 11px;
+  color: var(--ink);
+  gap: 7px;
+}
+.attribute-switch input:checked+.switch-track {
+  background: var(--green);
+  border-color: var(--green);
+}
+.attribute-switch input:focus-visible+.switch-track {
+  outline-color: var(--green);
+}
+.attribute-capacity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.attribute-capacity input {
+  width: 38px;
+  min-width: 38px;
+  height: 28px;
+  text-align: center;
+  padding: 1px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+.attribute-capacity input:disabled {
+  opacity: .35;
+}
+.form>.class-attributes {
+  width: 100%;
+  max-width: 100%;
+}
+@media (max-width:850px) {
+  .form>.class-attributes {
+    flex: 0 0 230px;
+    align-self: flex-end;
+    max-width: 100%;
+  }
+}
+
+/* V13.7 — Lectura mejorada sin cambiar la geometría ni la lógica de los horarios. */
+.timecard .hours {
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 850;
+}
+.timecard .tag {
+  font-size: 13px;
+  line-height: 1.25;
+  font-weight: 750;
+}
+.timecard .class-meta {
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--ink);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.weekcard {
+  /* La escala compartida permite leer cuatro líneas sin rozar el borde. */
+  padding: 3px 3px;
+  gap: 1px;
+}
+.weekcard .hours {
+  font-size: 12px;
+  line-height: 1.12;
+  font-weight: 850;
+}
+.weekcard .tag {
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 750;
+}
+.weekcard .class-meta {
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 650;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.weekcard.compact .hours {
+  font-size: 11px;
+}
+.weekcard.compact .tag,.weekcard.compact .class-meta {
+  display: none;
+}
+.weekcard.micro .hours {
+  font-size: 0;
+}
+.timecard.tiny .hours {
+  font-size: 11px;
+}
+.timecard.tiny .tag,.timecard.tiny .class-meta {
+  display: none;
+}
+.timecard.booked .tag,.weekcard.booked .tag {
+  color: var(--violet);
+}
+
+/* Reservas en lote: selección violeta, sin eliminar clases. */
+.reserve-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.reserve-options select {
+  width: 130px;
+  padding: 5px;
+  font-size: 11px;
+}
+.reserve-summary {
+  margin: 0;
+  font-size: 11px;
+  color: var(--violet);
+  line-height: 1.4;
+}
+.reserve-mode .repeat {
+  outline: 1px solid var(--violet);
+  background: color-mix(in srgb, var(--soft) 93%, var(--violet) 7%);
+}
+.reserve-mode .repeat-heading strong {
+  color: var(--violet);
+}
+.reserve-mode .timecard.reserve-target,.reserve-mode .weekcard.reserve-target {
+  border: 2px solid var(--violet) !important;
+  background: rgba(135,102,189,.28) !important;
+  z-index: 4;
+}
+.reserve-button.is-booked {
+  border-color: var(--violet);
+  color: var(--violet);
+}
+@media (max-width:700px) {
+
+  /* Las 7 columnas conservan un ancho legible y se desplazan horizontalmente. */
+  #weekarea {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  #weekarea .week {
+    min-width: 735px;
+  }
+  .weekcard .hours {
+    font-size: 12px;
+  }
+  .weekcard .tag,.weekcard .class-meta {
+    font-size: 11px;
+  }
+  .timecard .hours {
+    font-size: 14px;
+  }
+}
+
+/* V13.8 — Restauración del navegador diario, legibilidad y selección directa. */
+.timecard .class-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 7px;
+  align-items: center;
+  font-size: 13px;
+  line-height: 1.2;
+}
+.timecard .class-meta span+span::before {
+  content: "· ";
+  color: var(--muted);
+}
+.timecard.compact {
+  padding: 3px 6px;
+  gap: 1px;
+  justify-content: center;
+}
+.timecard.compact .class-meta {
+  display: none;
+}
+.timecard.compact .hours {
+  font-size: 13px;
+}
+.timecard.tiny {
+  padding: 1px 4px;
+  justify-content: center;
+  gap: 0;
+}
+.timecard.tiny .tag,.timecard.tiny .class-meta {
+  display: none;
+}
+.weekcard .class-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.weekcard .class-meta span {
+  display: block;
+}
+.weekcard.compact .class-meta,.weekcard.micro .class-meta {
+  display: none;
+}
+.selection-switch {
+  width: 100%;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+.selection-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border-top: 1px solid var(--line);
+  padding-top: 7px;
+}
+.selection-tools p {
+  margin: 0;
+}
+.selection-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+.selection-actions .btn:last-child {
+  grid-column: span 2;
+}
+.select-mode .timecard:not(.new),.select-mode .weekcard:not(.new) {
+  cursor: crosshair;
+}
+.select-mode .timecard.direct-selected,.select-mode .weekcard.direct-selected {
+  outline: 3px solid var(--amber);
+  outline-offset: 0;
+  z-index: 5;
+  box-shadow: inset 0 0 0 1px var(--surface);
+}
+.weekday.day-selectable {
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px dashed var(--line);
+  padding: 5px 0;
+}
+.weekday.day-selectable:hover,.weekday.day-selected {
+  background: rgba(184,128,56,.18);
+  border-color: var(--amber);
+}
+.year-day.year-selectable {
+  outline: 1px dashed var(--amber);
+  outline-offset: -2px;
+}
+.year-day.day-selected {
+  background: rgba(184,128,56,.35);
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+}
+#select-day {
+  font-size: 11px;
+  padding: 7px;
+}
+@media (max-width:700px) {
+  .calhead {
+    gap: 6px;
+  }
+  .nav input {
+    width: 112px;
+  }
+  #select-day {
+    order: 3;
+  }
+}
+
+/* V13.8.2 — Estados de tarjetas legibles en tema claro y oscuro.
+
+   La reserva domina visualmente sobre el estado de publicación. */
+:root {
+  --card-draft: rgba(36,131,99,.24);
+  --card-published: rgba(83,130,168,.29);
+  --card-booked: rgba(135,102,189,.35);
+}
+:root.dark {
+  --card-draft: rgba(58,163,110,.29);
+  --card-published: rgba(83,145,200,.34);
+  --card-booked: rgba(145,104,212,.40);
+}
+.timecard:not(.new):not(.published):not(.booked),.weekcard:not(.new):not(.published):not(.booked) {
+  background: var(--card-draft);
+  border-color: var(--green);
+}
+.timecard.published:not(.booked),.weekcard.published:not(.new):not(.booked) {
+  background: var(--card-published);
+  border-color: var(--blue);
+}
+.timecard.booked,.weekcard.booked,.weekcard.published.booked:not(.new) {
+  background: var(--card-booked);
+  border-color: var(--violet);
+}
+.timecard.booked .tag,.weekcard.booked .tag {
+  color: var(--violet);
+  font-weight: 800;
+}
+.copy-days-field {
+  gap: 5px;
+}
+#copy-days button {
+  min-width: 0;
+}
+
+/* V13.8.3 — Pulido de presentación, únicamente en Crear clases. */
+.form #date {
+  width: min(100px,100%);
+  max-width: 100px;
+}
+.form #duration {
+  width: min(100px,100%);
+  max-width: 100px;
+}
+.form #mode {
+  width: min(100px,100%);
+  max-width: 100px;
+}
+.form #count {
+  width: min(100px,100%);
+  max-width: 100px;
+}
+.form #end {
+  width: min(100px,100%);
+  max-width: 100px;
+}
+.form #start {
+  width: min(100px,100%);
+  max-width: 100px;
+}
+
+/* Los títulos quedan pegados a sus interruptores; se retira texto auxiliar redundante. */
+.form>.class-attributes .attribute-line {
+  justify-content: flex-start;
+  gap: 13px;
+}
+.form>.class-attributes .attribute-switch {
+  display: inline-flex;
+  gap: 7px;
+  color: var(--ink);
+  font-size: 11px;
+}
+/* Cupo siempre debajo de Grupal: permite una barra lateral estrecha. */
+.form>.class-attributes .attribute-line:first-child {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+.form>.class-attributes .attribute-capacity {
+  margin-left: 0;
+}
+.form>.class-attributes .booked-switch input:checked+.switch-track {
+  background: var(--violet);
+  border-color: var(--violet);
+}
+.form>.class-attributes .booked-switch input:focus-visible+.switch-track {
+  outline-color: var(--violet);
+}
+
+/* El error de intervalo se muestra junto al cálculo, en ambos temas. */
+.form #calc.duration-warning {
+  color: var(--amber);
+  font-weight: 700;
+  border-left: 3px solid var(--amber);
+  padding: 6px 8px;
+  background: rgba(184,128,56,.09);
+  border-radius: 5px;
+}
+.form #duration.duration-warning,.form #end.duration-warning {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 1px rgba(184,128,56,.3);
+}
+
+/* Se conserva el texto original debajo del calendario, ahora con jerarquía. */
+.calendar .message:not(:empty) {
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--blue);
+  background: var(--soft);
+  border-radius: 8px;
+  margin-top: 12px;
+}
+.calendar .message[data-kind="success"]:not(:empty) {
+  border-left-color: var(--green);
+}
+.calendar .message[data-kind="warning"]:not(:empty) {
+  border-left-color: var(--amber);
+}
+.calendar .message[data-kind="error"]:not(:empty) {
+  border-left-color: var(--red);
+}
+
+/* Confirmación flotante: no bloquea calendario ni exige aceptar. */
+.toast-area {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  z-index: 11000;
+  width: min(340px,calc(100vw - 32px));
+  pointer-events: none;
+}
+.cm-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 12px 32px rgba(0,0,0,.17);
+}
+.cm-toast[data-kind="success"] {
+  border-left-color: var(--green);
+}
+.cm-toast[data-kind="warning"] {
+  border-left-color: var(--amber);
+}
+.cm-toast[data-kind="error"] {
+  border-left-color: var(--red);
+}
+.cm-toast-icon {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1.2;
+}
+.cm-toast[data-kind="success"] .cm-toast-icon {
+  color: var(--green);
+}
+.cm-toast[data-kind="warning"] .cm-toast-icon {
+  color: var(--amber);
+}
+.cm-toast[data-kind="error"] .cm-toast-icon {
+  color: var(--red);
+}
+.cm-toast-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.cm-toast-close {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 18px;
+  padding: 0;
+  line-height: 1;
+}
+@media (max-width:480px) {
+  .toast-area {
+    top: 8px;
+    right: 8px;
+    width: min(340px,calc(100vw - 16px));
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .cm-toast {
+    transition: none;
+  }
+}
+
+/* V13.8.4 — Vista previa anual: mismas selecciones que Día y Semana. */
+.reserve-mode .year-day.reserve-target {
+  background: rgba(135,102,189,.28);
+  border: 2px solid var(--violet);
+  font-weight: 800;
+}
+.erase-mode .year-day.erase-target {
+  background: rgba(184,128,56,.25);
+  border: 2px solid var(--amber);
+  font-weight: 800;
+}
+
+/* Botón para desplegar herramientas */
+/* Un botón de acción y un desplegable, sin desbordar la regla. */
+.form .pair {
+  grid-template-columns: minmax(0, 1fr) 38px;
+  width: 100%;
+}
+.form .pair .btn {
+  min-width: 0;
+  height: 28px;
+  padding: 4px;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.form .pair #repeat {
+  width: 38px;
+  min-width: 38px;
+  height: 28px;
+  padding: 0;
+  font-size: 18px;
+}
+
+/* Pie: contador fijo a la izquierda, botón centrado */
+.status {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  margin-top: 8px;
+  gap: 10px;
+}
+.status #summary {
+  grid-column: 1;
+  font-size: 12px;
+}
+.status #clear {
+  grid-column: 2;
+  justify-self: center;
+  background: rgba(36, 131, 99, .12);
+  border: 1px solid var(--green);
+  border-radius: 9px;
+  color: var(--ink);
+  font-weight: 750;
+  padding: 9px 16px;
+}
+
+/* Ámbar reservado para una acción realmente obligatoria */
+.status #clear.needs-attention {
+  color: var(--amber);
+  border-color: var(--amber);
+  box-shadow: 0 0 8px rgba(184, 128, 56, .22);
+  text-shadow: 0 0 5px rgba(184, 128, 56, .2);
+}
+@media (max-width: 650px) {
+  .status {
+    grid-template-columns: 1fr;
+  }
+  .status #summary {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .status #clear {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+/* =====================================================================
+   V13.8.6 — Vista semanal con geometría horaria constante
+   Una misma plantilla para profesores y estudiantes. No modifica datos.
+   ===================================================================== */
+
+/* El desplazamiento ocurre dentro del calendario, no en toda la herramienta. */
+/* El límite de altura y el scroll se comparten con Día y Año. */
+
+/* Ocho columnas: escala horaria + siete días, sin separadores verticales. */
+#weekarea .week {
+  display: grid;
+  grid-template-columns: 43px repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  align-items: start;
+  min-width: 0;
+}
+
+#weekarea .week-axis-column,
+#weekarea .week-day-column {
+  min-width: 0;
+}
+
+/* Un encabezado único y opaco oculta las tarjetas al desplazarse. */
+#weekarea .week-headers {
+  grid-column: 1 / -1;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 43px repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+#weekarea .week-day-header,
+#weekarea .week-axis-header {
+  background: var(--surface);
+  border-radius: 5px;
+  min-height: 29px;
+  padding: 6px 2px;
+  margin: 0;
+}
+
+#weekarea .week-axis-header {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+#weekarea .week-day-header {
+  cursor: pointer;
+}
+
+#weekarea .week-day-header.week-current-day {
+  background: rgba(36, 131, 99, .13);
+  color: var(--green);
+  border-color: var(--green);
+}
+
+#weekarea .week-time-axis {
+  position: relative;
+  min-height: 0;
+}
+
+#weekarea .week-hour-label {
+  position: absolute;
+  right: 3px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+#weekarea .week-hour-label.noon {
+  color: var(--amber);
+  font-weight: 750;
+}
+
+#weekarea .week-hour-lane {
+  position: relative;
+  min-height: 0;
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(36, 131, 99, .055), rgba(36, 131, 99, .025));
+}
+
+#weekarea .week-hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed var(--line);
+  pointer-events: none;
+}
+
+#weekarea .week-hour-line.noon {
+  border-top: 1px solid rgba(184, 128, 56, .7);
+}
+
+/* En móviles, el ancho de cada día se mantiene legible con scroll lateral. */
+@media (max-width: 700px) {
+  #weekarea .week {
+    min-width: 780px;
+    grid-template-columns: 43px repeat(7, minmax(0, 1fr));
+  }
+  #weekarea .week-headers {
+    grid-template-columns: 43px repeat(7, minmax(0, 1fr));
+  }
+}
+
+/* Etiquetas de los extremos: evitar que se recorten al desplazarse. */
+#weekarea .week-hour-label:first-child {
+  transform: translateY(2px);
+}
+#weekarea .week-hour-label:last-child {
+  transform: translateY(-100%);
+}
+
+/* V13.8.14: contexto del profesor; sin alterar la geometría del calendario. */
+.teacher-context-banner{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 13px;margin:0 0 12px;border:1px solid var(--line);border-left:3px solid var(--green);border-radius:9px;background:var(--surface)}
+.teacher-context-banner strong{font-size:13px}.teacher-context-banner span{font-size:10px;color:var(--muted)}
+
+/* V13.8.21 · Identificación Bachillerato, sin sustituir colores de estado. */
+.bach-class .bach-label { color: #b85824; font-size: 10px; font-weight: 850; letter-spacing: .01em; }
+:root.dark .bach-class .bach-label { color: #f1a16d; }
+.form>.class-attributes .bach-switch input:checked+.switch-track,
+.edit-attributes .bach-switch input:checked+.switch-track { background: #b85824; border-color: #b85824; }
+:root.dark .form>.class-attributes .bach-switch input:checked+.switch-track,
+:root.dark .edit-attributes .bach-switch input:checked+.switch-track { background: #d77c43; border-color: #d77c43; }
